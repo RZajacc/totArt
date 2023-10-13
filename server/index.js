@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import cityRoutes from "./routes/cityRoutes.js";
 import museumRoutes from "./routes/museumRoutes.js";
 import testRoute from "./routes/testRoute.js";
+import postRoute from "./routes/postsRoutes.js";
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ const addRoutes = () => {
   app.use("/api", testRoute);
   app.use("/api/cities", cityRoutes);
   app.use("/api/museums", museumRoutes);
+  app.use("/api/posts", postRoute);
 };
 
 // * 4_START SERVER
