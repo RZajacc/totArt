@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 function MyNav() {
   return (
@@ -7,15 +8,23 @@ function MyNav() {
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
           <div>
-            <Navbar.Brand href="#home">TotArt</Navbar.Brand>
+            <LinkContainer to={"/"}>
+              <Navbar.Brand href="#home">TotArt</Navbar.Brand>
+            </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
           </div>
           <div>
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="#home">Content</Nav.Link>
-                <Nav.Link href="#link">Contact</Nav.Link>
-                <Nav.Link href="#link">Account</Nav.Link>
+                <LinkContainer to={"content"}>
+                  <Nav.Link href="#home">Content</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to={"contact"}>
+                  <Nav.Link href="#link">Contact</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to={"account"}>
+                  <Nav.Link href="#link">Account</Nav.Link>
+                </LinkContainer>
               </Nav>
             </Navbar.Collapse>
           </div>
