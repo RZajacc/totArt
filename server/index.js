@@ -8,6 +8,7 @@ import museumRoutes from "./routes/museumRoutes.js";
 import testRoute from "./routes/testRoute.js";
 import postRoute from "./routes/postsRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import cloudinaryConfig from "./config/cloudinaryConfig.js";
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ const addMiddlewares = () => {
       extended: true,
     })
   );
+  cloudinaryConfig();
 };
 
 // * 3_ADD ROUTES
