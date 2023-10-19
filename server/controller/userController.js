@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import userModel from "../models/userModel.js";
-import { bcrypt_hash } from "../utils/bcrypt_config.js";
+import { bcrypt_hash, bcrypt_verifyPassword } from "../utils/bcrypt_config.js";
 import { response } from "express";
 
 const uploadImage = async (req, res) => {
@@ -77,4 +77,39 @@ const register = async (req, res) => {
   }
 };
 
-export { uploadImage, register };
+const login = async (req, res) => {
+  // console.log(req.body);
+  // * Check if the user exists in the database
+  try {
+    const existingUser = await userModel.findOne({ email: req.body.email });
+    if (!existingUser) {
+      res.status(404).json({
+        msg: "no user found with provided email",
+      });
+    } else {
+      // *Check password
+      const checkPassword = await bcrypt_verifyPassword(
+        req.body.password,
+        existingUser.password
+      );
+
+      if (!checkPassword) {
+        res.status(404).json({
+          msg: "Wrong password, try again",
+        });
+      }
+
+      if (checkPassword) {
+        res.status(200).json({
+          msg: "Successfull login",
+        });
+      }
+    }
+  } catch (error) {
+    res.status(500).json({
+      msg: "I don't have a clue whats wrong!",
+    });
+  }
+};
+
+export { uploadImage, register, login };
