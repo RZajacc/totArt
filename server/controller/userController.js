@@ -2,6 +2,7 @@ import { v2 as cloudinary } from "cloudinary";
 import userModel from "../models/userModel.js";
 import { bcrypt_hash, bcrypt_verifyPassword } from "../utils/bcrypt_config.js";
 import { response } from "express";
+import { generateToken } from "../utils/tokenServices.js";
 
 const uploadImage = async (req, res) => {
   //   * Upload file to cloudinary
@@ -100,6 +101,9 @@ const login = async (req, res) => {
       }
 
       if (checkPassword) {
+        // * GENERATE TOKEN
+        const token = generateToken(existingUser.id);
+
         res.status(200).json({
           msg: "Successfull login",
         });
