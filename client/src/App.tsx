@@ -1,4 +1,3 @@
-import React from "react";
 import MyNav from "./components/MyNav";
 import {
   createBrowserRouter,

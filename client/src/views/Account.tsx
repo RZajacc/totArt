@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Login from "../components/Login";
 
@@ -20,6 +20,8 @@ function Account() {
     password: "",
     userImage: "",
   });
+
+  const [userLogged, setUserLogged] = useState(false);
 
   // *-----------HANDLE INCOMING DATA---------------------------
   const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +83,28 @@ function Account() {
     }
   };
 
+  // * -----------LOGGING IN--------------------
+  const isUserLoggedIn = () => {
+    const token = localStorage.getItem("token");
+    return token ? true : false;
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUserLogged(false);
+  };
+
+  useEffect(() => {
+    const isLoggedIn = isUserLoggedIn();
+    if (isLoggedIn) {
+      setUserLogged(true);
+      console.log("User is logged in!");
+    } else {
+      console.log("User is NOT logged in");
+      setUserLogged(false);
+    }
+  }, [userLogged]);
+
   // ? ----------STYLING---------------------------
   const containerStyle = {
     marginTop: "50px",
@@ -91,6 +115,7 @@ function Account() {
       <Container style={containerStyle}>
         <Row className="justify-content-center">
           <Col xs={6}>
+            <Button onClick={logout}>Logout</Button>
             <Form onSubmit={handleRegisterSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Username:</Form.Label>

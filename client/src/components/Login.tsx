@@ -1,9 +1,21 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 
 type LoginCredentials = {
   email: string;
   password: string;
+};
+
+type User = {
+  userName: string;
+  email: string;
+  userImage?: string;
+};
+
+type LoggingResponse = {
+  msg: string;
+  user: User;
+  token: string;
 };
 
 function Login() {
@@ -19,8 +31,56 @@ function Login() {
 
   const handleSubmitLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(loginCredentials);
+
+    //* Logging in
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("email", loginCredentials ? loginCredentials.email : "");
+    urlencoded.append(
+      "password",
+      loginCredentials ? loginCredentials.password : ""
+    );
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: urlencoded,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/login",
+        requestOptions
+      );
+      if (response.ok) {
+        const result: LoggingResponse = await response.json();
+        console.log(result);
+        const token = result.token;
+        if (token) {
+          localStorage.setItem("token", token);
+        }
+      }
+    } catch (err) {
+      const error = err as Error;
+      console.log("Error :>>", error.message);
+    }
   };
+
+  const isUserLoggedIn = () => {
+    const token = localStorage.getItem("token");
+    return token ? true : false;
+  };
+
+  useEffect(() => {
+    const isLoggedIn = isUserLoggedIn();
+    if (isLoggedIn) {
+      console.log("User is logged in!");
+    } else {
+      console.log("User is NOT logged in");
+    }
+  }, []);
 
   return (
     <div>
