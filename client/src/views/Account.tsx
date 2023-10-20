@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import Login from "../components/Login";
 
 type UserImage = {
   userImage: string;
@@ -118,7 +119,7 @@ function Account() {
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
-                  name="email"
+                  name="password"
                   placeholder="Password"
                   onChange={handleInputData}
                 />
@@ -131,6 +132,7 @@ function Account() {
               </div>
             </Form>
 
+            {/* Submitting a file */}
             <Form onSubmit={handleFileSubmit}>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Default file input example</Form.Label>
@@ -147,6 +149,7 @@ function Account() {
                 </div>
               )}
             </Form>
+            <Login />
           </Col>
         </Row>
       </Container>

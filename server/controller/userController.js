@@ -103,10 +103,22 @@ const login = async (req, res) => {
       if (checkPassword) {
         // * GENERATE TOKEN
         const token = generateToken(existingUser.id);
-
-        res.status(200).json({
-          msg: "Successfull login",
-        });
+        if (token) {
+          res.status(200).json({
+            msg: "Successfull login",
+            user: {
+              userName: existingUser.userName,
+              email: existingUser.email,
+              userImage: existingUser.userImage,
+            },
+            token,
+          });
+        } else {
+          console.log("error generating a token");
+          res.status(400).json({
+            msg: "Something went wrong with your request",
+          });
+        }
       }
     }
   } catch (error) {
