@@ -12,31 +12,27 @@ import Contact from "./views/Contact";
 import Account from "./views/Account";
 
 function App() {
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<Root />}>
-        <Route index element={<Home />} />
-        <Route path="/content" element={<Content />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/account" element={<Account />} />
-      </Route>
-    )
-  );
+  // const router = createBrowserRouter(
+  //   createRoutesFromElements(
+  //     <Route path="/" element={<Root />}>
+  //       <Route index element={<Home />} />
+  //       <Route path="/content" element={<Content />} />
+  //       <Route path="/contact" element={<Contact />} />
+  //       <Route path="/account" element={<Account />} />
+  //     </Route>
+  //   )
+  // );
 
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  return <>{/* <RouterProvider router={router} /> */}</>;
 }
 
-const Root = () => {
-  return (
-    <>
-      <MyNav />
-      <Outlet />
-    </>
-  );
-};
+// const Root = () => {
+//   return (
+//     <>
+//       <MyNav />
+//       <Outlet />
+//     </>
+//   );
+// };
 
 export default App;

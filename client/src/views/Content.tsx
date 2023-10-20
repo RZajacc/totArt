@@ -23,7 +23,7 @@ function Content() {
     <>
       <Container>
         <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src={postData[0].imageUrl} />
+          <Card.Img variant="top" src={postData ? postData[0].imageUrl : ""} />
           <Card.Body>
             <Card.Title>Card Title</Card.Title>
             <Card.Text>
