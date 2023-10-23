@@ -1,38 +1,36 @@
-import MyNav from "./components/MyNav";
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  Outlet,
-  RouterProvider,
-} from "react-router-dom";
-import Home from "./views/Home";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import ErrorPage from "./components/ErrorPage";
 import Content from "./views/Content";
+import Root from "./components/Root";
+import { dataLoader } from "./utils/DataLoader";
 import Contact from "./views/Contact";
 import Account from "./views/Account";
 
 function App() {
-  // const router = createBrowserRouter(
-  //   createRoutesFromElements(
-  //     <Route path="/" element={<Root />}>
-  //       <Route index element={<Home />} />
-  //       <Route path="/content" element={<Content />} />
-  //       <Route path="/contact" element={<Contact />} />
-  //       <Route path="/account" element={<Account />} />
-  //     </Route>
-  //   )
-  // );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "content",
+          loader: dataLoader,
+          element: <Content />,
+        },
+        {
+          path: "contact",
+          element: <Contact />,
+        },
+        {
+          path: "account",
+          element: <Account />,
+        },
+      ],
+    },
+  ]);
 
-  return <>{/* <RouterProvider router={router} /> */}</>;
+  return <RouterProvider router={router} />;
 }
-
-// const Root = () => {
-//   return (
-//     <>
-//       <MyNav />
-//       <Outlet />
-//     </>
-//   );
-// };
 
 export default App;
