@@ -28,6 +28,7 @@ function ImageUpload() {
         requestOptions
       );
       const result = (await response.json()) as UserImage;
+      console.log(result);
       //   setNewUser({ ...newUser, userImage: result.userImage });
     } catch (error) {
       console.log(error);

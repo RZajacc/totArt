@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Login from "../components/Login";
 import Register from "../components/Register";
 
@@ -7,6 +7,7 @@ import "../styles/accountPage.css";
 
 function Account() {
   const [userLogged, setUserLogged] = useState(false);
+  const [LogReg, setLogReg] = useState("register");
 
   // * -----------LOGGING IN--------------------
   const isUserLoggedIn = () => {
@@ -19,6 +20,7 @@ function Account() {
   //   setUserLogged(false);
   // };
 
+  console.log(LogReg);
   useEffect(() => {
     const isLoggedIn = isUserLoggedIn();
     if (isLoggedIn) {
@@ -44,9 +46,11 @@ function Account() {
 
           <Col xs={6}>
             {/* <Button onClick={logout}>Logout</Button> */}
-
-            <Login />
-            <Register />
+            {LogReg === "register" ? (
+              <Register setLogReg={setLogReg} />
+            ) : (
+              <Login setLogReg={setLogReg} />
+            )}
           </Col>
         </Row>
       </Container>

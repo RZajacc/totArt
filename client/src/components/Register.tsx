@@ -2,7 +2,11 @@ import { Button, Form } from "react-bootstrap";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { User } from "../types/types";
 
-function Register() {
+type Props = {
+  setLogReg: (status: string) => void;
+};
+
+function Register({ setLogReg }: Props) {
   const [newUser, setNewUser] = useState<User>({
     userName: "",
     email: "",
@@ -38,6 +42,10 @@ function Register() {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleChangeState = () => {
+    setLogReg("login");
   };
 
   return (
@@ -82,6 +90,12 @@ function Register() {
           </Button>
         </div>
       </Form>
+      <p>
+        If you already have an account then simply{" "}
+        <span className="statusHandler" onClick={handleChangeState}>
+          Log in
+        </span>
+      </p>
     </>
   );
 }

@@ -18,7 +18,11 @@ type LoggingResponse = {
   token: string;
 };
 
-function Login() {
+type Props = {
+  setLogReg: (status: string) => void;
+};
+
+function Login({ setLogReg }: Props) {
   const [loginCredentials, setLoginCredentials] =
     useState<LoginCredentials | null>(null);
 
@@ -82,9 +86,12 @@ function Login() {
     }
   }, []);
 
+  const handleChangeState = () => {
+    setLogReg("register");
+  };
+
   return (
     <div>
-      <h2>Login</h2>
       <div>
         <Form onSubmit={handleSubmitLogin}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -116,6 +123,12 @@ function Login() {
             </Button>
           </div>
         </Form>
+        <p>
+          If you dont have your account yet, please{" "}
+          <span className="statusHandler" onClick={handleChangeState}>
+            Register
+          </span>
+        </p>
       </div>
     </div>
   );
