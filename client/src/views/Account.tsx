@@ -36,7 +36,7 @@ function Account() {
     <>
       <Container className="userAuthContainer">
         <Row className="justify-content-center">
-          <Col xs={3}>
+          <Col xs={4}>
             <img
               src="../src/assets/berlin_wall_theme.jpg"
               alt="Berlin wall photo"
@@ -44,7 +44,7 @@ function Account() {
             />
           </Col>
 
-          <Col xs={6}>
+          <Col xs={8}>
             {/* <Button onClick={logout}>Logout</Button> */}
             {LogReg === "register" ? (
               <Register setLogReg={setLogReg} />

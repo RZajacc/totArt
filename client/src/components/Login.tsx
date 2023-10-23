@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
+import "../styles/accountPage.css";
 
 type LoginCredentials = {
   email: string;
@@ -91,8 +92,18 @@ function Login({ setLogReg }: Props) {
   };
 
   return (
-    <div>
-      <div>
+    <>
+      <Container className="loginContainer">
+        <div className="welcome-div">
+          <h4>Welcome to TotArt</h4>
+          <p>To use all of our functionalities please login to your account</p>
+          <p className="logreg-paragraph">
+            If you dont have your account yet, please{" "}
+            <span className="statusHandler" onClick={handleChangeState}>
+              register
+            </span>
+          </p>
+        </div>
         <Form onSubmit={handleSubmitLogin}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -102,9 +113,6 @@ function Login({ setLogReg }: Props) {
               placeholder="Enter email"
               onChange={handleLoginInput}
             />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -118,19 +126,13 @@ function Login({ setLogReg }: Props) {
           </Form.Group>
 
           <div className="text-center">
-            <Button variant="primary" type="submit">
+            <Button variant="warning" type="submit">
               Login
             </Button>
           </div>
         </Form>
-        <p>
-          If you dont have your account yet, please{" "}
-          <span className="statusHandler" onClick={handleChangeState}>
-            Register
-          </span>
-        </p>
-      </div>
-    </div>
+      </Container>
+    </>
   );
 }
 
