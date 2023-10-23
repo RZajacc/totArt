@@ -1,87 +1,41 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import Login from "../components/Login";
-
-type UserImage = {
-  userImage: string;
-};
-
-interface User extends UserImage {
-  userName: string;
-  email: string;
-  password: string;
-}
+import Register from "../components/Register";
 
 function Account() {
-  const [selectedFile, setSelectedFile] = useState<File | string>("");
-  const [newUser, setNewUser] = useState<User>({
-    userName: "",
-    email: "",
-    password: "",
-    userImage: "",
-  });
-
   const [userLogged, setUserLogged] = useState(false);
 
-  // *-----------HANDLE INCOMING DATA---------------------------
-  const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectedFile(e.target.files ? e.target.files[0] : "");
-  };
+  // const [selectedFile, setSelectedFile] = useState<File | string>("");
 
-  const handleInputData = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewUser({ ...newUser, [e.target.name]: e.target.value });
-  };
+  // // *-----------HANDLE INCOMING DATA---------------------------
+  // const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setSelectedFile(e.target.files ? e.target.files[0] : "");
+  // };
 
-  // *-----------SUBMITTING A FILE-----------------------------
-  const handleFileSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // // *-----------SUBMITTING A FILE-----------------------------
+  // const handleFileSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
 
-    const formdata = new FormData();
-    formdata.append("userImage", selectedFile);
+  //   const formdata = new FormData();
+  //   formdata.append("userImage", selectedFile);
 
-    const requestOptions = {
-      method: "POST",
-      body: formdata,
-    };
+  //   const requestOptions = {
+  //     method: "POST",
+  //     body: formdata,
+  //   };
 
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/users/imageUpload",
-        requestOptions
-      );
-      const result = (await response.json()) as UserImage;
-      setNewUser({ ...newUser, userImage: result.userImage });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // *-----------REGISTER A NEW USER----------------------------------
-  const handleRegisterSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const urlencoded = new URLSearchParams();
-    urlencoded.append("userName", newUser.userName);
-    urlencoded.append("email", newUser.email);
-    urlencoded.append("password", newUser.password);
-    urlencoded.append("userImage", newUser.userImage ? newUser.userImage : "");
-
-    const requestOptions = {
-      method: "POST",
-      body: urlencoded,
-    };
-
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/users/register",
-        requestOptions
-      );
-      const result = await response.json();
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:5000/api/users/imageUpload",
+  //       requestOptions
+  //     );
+  //     const result = (await response.json()) as UserImage;
+  //     setNewUser({ ...newUser, userImage: result.userImage });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // * -----------LOGGING IN--------------------
   const isUserLoggedIn = () => {
@@ -116,49 +70,9 @@ function Account() {
         <Row className="justify-content-center">
           <Col xs={6}>
             <Button onClick={logout}>Logout</Button>
-            <Form onSubmit={handleRegisterSubmit}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Username:</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="userName"
-                  placeholder="Enter username"
-                  onChange={handleInputData}
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  placeholder="Enter email"
-                  onChange={handleInputData}
-                />
-                <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
-                </Form.Text>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  onChange={handleInputData}
-                />
-              </Form.Group>
-
-              <div className="text-center">
-                <Button variant="primary" type="submit">
-                  Register
-                </Button>
-              </div>
-            </Form>
 
             {/* Submitting a file */}
-            <Form onSubmit={handleFileSubmit}>
+            {/* <Form onSubmit={handleFileSubmit}>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Default file input example</Form.Label>
                 <Form.Control type="file" onChange={handleFileInput} />
@@ -173,8 +87,9 @@ function Account() {
                   <img src={newUser.userImage} alt="user-avatar-picture" />
                 </div>
               )}
-            </Form>
+            </Form> */}
             <Login />
+            <Register />
           </Col>
         </Row>
       </Container>

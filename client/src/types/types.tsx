@@ -10,3 +10,13 @@ export interface contentData {
   number: number;
   posts: singleEntryData[];
 }
+
+export type UserImage = {
+  userImage: string;
+};
+
+export interface User extends UserImage {
+  userName: string;
+  email: string;
+  password: string;
+}
