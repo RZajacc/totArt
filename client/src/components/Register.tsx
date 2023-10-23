@@ -1,5 +1,5 @@
 import { Button, Form } from "react-bootstrap";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { User } from "../types/types";
 
 function Register() {

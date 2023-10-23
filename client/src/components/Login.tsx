@@ -84,7 +84,6 @@ function Login() {
 
   return (
     <div>
-      <hr />
       <h2>Login</h2>
       <div>
         <Form onSubmit={handleSubmitLogin}>
