@@ -1,7 +1,12 @@
-export interface postType {
+export interface singleEntryData {
+  id: string;
   title: string;
   description: string;
   location: string;
   imageUrl: string;
-  _id: string;
+}
+
+export interface contentData {
+  number: number;
+  posts: singleEntryData[];
 }

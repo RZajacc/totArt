@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
 import Content from "./views/Content";
 import Root from "./components/Root";
+import { dataLoader } from "./utils/DataLoader";
 import Contact from "./views/Contact";
 import Account from "./views/Account";
 
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "content",
+        loader: dataLoader,
         element: <Content />,
       },
       {
@@ -31,7 +33,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    {/* <App /> */}
     <RouterProvider router={router} />
   </React.StrictMode>
 );
