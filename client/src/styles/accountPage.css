@@ -28,9 +28,8 @@
 
 .loginContainer {
     padding: 3% 15% 3% 10%;
-    border: 1px solid gray;
     border-radius: 3%;
-    box-shadow: 5px 10px 10px #888888;
+    box-shadow: 5px 15px 15px #888888;
 }
 
 .welcome-div {
