@@ -128,4 +128,24 @@ const login = async (req, res) => {
   }
 };
 
-export { uploadImage, register, login };
+const getProfle = async (req, res) => {
+  console.log("get profile");
+  console.log("req.user---->", req.user);
+  if (req.user) {
+    res.status(200).json({
+      user: {
+        userName: req.user.userName,
+        email: req.user.email,
+        userImage: req.user.userImage,
+      },
+    });
+  }
+
+  if (!req.user) {
+    res.status(200).json({
+      msg: "You need to authorize first",
+    });
+  }
+};
+
+export { uploadImage, register, login, getProfle };
