@@ -5,6 +5,7 @@ import Root from "./components/Root";
 import { dataLoader } from "./utils/DataLoader";
 import Contact from "./views/Contact";
 import Account from "./views/Account";
+import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
   const router = createBrowserRouter([
@@ -30,7 +31,11 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+    </AuthContextProvider>
+  );
 }
 
 export default App;
