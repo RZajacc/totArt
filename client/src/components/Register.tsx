@@ -1,13 +1,18 @@
 import { Button, Container, Form } from "react-bootstrap";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, useContext } from "react";
 import { User } from "../types/types";
 import "../styles/accountPage.css";
+import { AuthContext } from "../context/AuthContext";
 
 type Props = {
   setLogReg: (status: string) => void;
 };
 
 function Register({ setLogReg }: Props) {
+  // *Setting up context
+  const { registerWithEmail } = useContext(AuthContext);
+
+  // *1. Setting up a new user from input fields
   const [newUser, setNewUser] = useState<User>({
     userName: "",
     email: "",
@@ -15,41 +20,20 @@ function Register({ setLogReg }: Props) {
     userImage: "",
   });
 
+  // *2. Receiving input from a form
   const handleInputData = (e: ChangeEvent<HTMLInputElement>) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
   };
 
-  const handleRegisterSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const urlencoded = new URLSearchParams();
-    urlencoded.append("userName", newUser.userName);
-    urlencoded.append("email", newUser.email);
-    urlencoded.append("password", newUser.password);
-    urlencoded.append(
-      "userImage",
-      "https://res.cloudinary.com/dqdofxwft/image/upload/v1698072044/other/nil6d9iaml3c6hqfdhly.png"
-    );
-
-    const requestOptions = {
-      method: "POST",
-      body: urlencoded,
-    };
-
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/users/register",
-        requestOptions
-      );
-      const result = await response.json();
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  // *3. Change displayed element on the page
   const handleChangeState = () => {
     setLogReg("login");
+  };
+
+  // *4 Register a new user
+  const handleRegisterSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    registerWithEmail(newUser);
   };
 
   return (
