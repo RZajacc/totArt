@@ -1,31 +1,29 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Login from "../components/Login";
 import Register from "../components/Register";
 
 import "../styles/accountPage.css";
 import GetProfile from "../components/GetProfile";
-import Heading from "../components/Heading";
-import Section from "../components/Section";
-import { AuthContext } from "../context/AuthContext";
 
 function Account() {
   const [userLogged, setUserLogged] = useState(false);
   const [LogReg, setLogReg] = useState("register");
-  const val = useContext(AuthContext);
-  console.log("Context val-->", val);
 
   // * -----------LOGGING IN--------------------
+  // ! AUTH CONTEXT!!!
   const isUserLoggedIn = () => {
     const token = localStorage.getItem("token");
     return token ? true : false;
   };
 
+  // ! AUTH CONTEXT!!!
   // const logout = () => {
   //   localStorage.removeItem("token");
   //   setUserLogged(false);
   // };
 
+  // ! AUTH CONTEXT!!!
   console.log(LogReg);
   useEffect(() => {
     const isLoggedIn = isUserLoggedIn();

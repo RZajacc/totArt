@@ -20,3 +20,14 @@ export interface User extends UserImage {
   email: string;
   password: string;
 }
+
+export type LoginCredentials = {
+  email: string;
+  password: string;
+};
+
+export type LoggingResponse = {
+  msg: string;
+  user: User;
+  token: string;
+};

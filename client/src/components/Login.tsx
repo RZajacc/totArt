@@ -1,32 +1,22 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState, useContext } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import "../styles/accountPage.css";
-
-type LoginCredentials = {
-  email: string;
-  password: string;
-};
-
-type User = {
-  userName: string;
-  email: string;
-  userImage?: string;
-};
-
-type LoggingResponse = {
-  msg: string;
-  user: User;
-  token: string;
-};
+import { LoginCredentials } from "../types/types";
+import { AuthContext } from "../context/AuthContext";
 
 type Props = {
   setLogReg: (status: string) => void;
 };
 
 function Login({ setLogReg }: Props) {
+  // * USE CONTEXT DATA
+  const { login } = useContext(AuthContext);
+
+  //* 1_Setting a login credentials
   const [loginCredentials, setLoginCredentials] =
     useState<LoginCredentials | null>(null);
 
+  // *2_Collect data from inputes
   const handleLoginInput = (e: ChangeEvent<HTMLInputElement>) => {
     setLoginCredentials({
       ...(loginCredentials as LoginCredentials),
@@ -34,50 +24,28 @@ function Login({ setLogReg }: Props) {
     });
   };
 
+  // *3_Login a user
   const handleSubmitLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    //* Logging in
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-    const urlencoded = new URLSearchParams();
-    urlencoded.append("email", loginCredentials ? loginCredentials.email : "");
-    urlencoded.append(
-      "password",
-      loginCredentials ? loginCredentials.password : ""
-    );
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: urlencoded,
-    };
-
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/users/login",
-        requestOptions
-      );
-      if (response.ok) {
-        const result: LoggingResponse = await response.json();
-        console.log(result);
-        const token = result.token;
-        if (token) {
-          localStorage.setItem("token", token);
-        }
-      }
-    } catch (err) {
-      const error = err as Error;
-      console.log("Error :>>", error.message);
+    if (loginCredentials) {
+      login(loginCredentials);
+    } else {
+      console.log("No credentials provided");
     }
   };
 
+  // *4. Change displayed element on the page
+  const handleChangeState = () => {
+    setLogReg("register");
+  };
+
+  // ! THIS SHOULD GO INTO CONTEXT
   const isUserLoggedIn = () => {
     const token = localStorage.getItem("token");
     return token ? true : false;
   };
 
+  // ! THIS SHOULD GO INTO CONTEXT
   useEffect(() => {
     const isLoggedIn = isUserLoggedIn();
     if (isLoggedIn) {
@@ -86,10 +54,6 @@ function Login({ setLogReg }: Props) {
       console.log("User is NOT logged in");
     }
   }, []);
-
-  const handleChangeState = () => {
-    setLogReg("register");
-  };
 
   return (
     <>
