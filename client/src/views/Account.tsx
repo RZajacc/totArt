@@ -4,6 +4,7 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 
 import "../styles/accountPage.css";
+import GetProfile from "../components/GetProfile";
 
 function Account() {
   const [userLogged, setUserLogged] = useState(false);
@@ -51,6 +52,7 @@ function Account() {
             ) : (
               <Login setLogReg={setLogReg} />
             )}
+            <GetProfile />
           </Col>
         </Row>
       </Container>
