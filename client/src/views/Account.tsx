@@ -8,14 +8,8 @@ import { AuthContext } from "../context/AuthContext";
 
 function Account() {
   const [LogReg, setLogReg] = useState("register");
-  const { setIsLoggedIn, isLoggedIn } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
 
-  console.log(isLoggedIn);
-  // ! AUTH CONTEXT!!!
-  const logout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-  };
   return (
     <>
       <Container className="userAuthContainer">

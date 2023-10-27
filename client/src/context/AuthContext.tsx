@@ -4,17 +4,17 @@ import { LoggingResponse, LoginCredentials, User } from "../types/types";
 interface AuthContextType {
   registerWithEmail: (newUser: User) => void;
   login: (loginCredentials: LoginCredentials) => void;
-  isLoggedIn: boolean;
   user: User | null;
   setIsLoggedIn: (isLogged: boolean) => void;
+  logout: () => void;
 }
 
 const AuthInitContext = {
   registerWithEmail: () => console.log("No user registered yet"),
   login: () => console.log("User not logged in yet"),
-  isLoggedIn: false,
   user: null,
   setIsLoggedIn: () => console.log("User not logged in"),
+  logout: () => console.log("User is logged out"),
 };
 
 type AuthContexProviderProps = {
@@ -136,9 +136,14 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
     isUserLoggedIn();
   }, [isLoggedIn]);
 
+  // *LOGOUT
+  const logout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
   return (
     <AuthContext.Provider
-      value={{ registerWithEmail, login, isLoggedIn, user, setIsLoggedIn }}
+      value={{ registerWithEmail, login, user, setIsLoggedIn, logout }}
     >
       {children}
     </AuthContext.Provider>
