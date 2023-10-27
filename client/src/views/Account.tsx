@@ -1,41 +1,21 @@
-import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { useState, useContext } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import Login from "../components/Login";
 import Register from "../components/Register";
 
 import "../styles/accountPage.css";
-import GetProfile from "../components/GetProfile";
+import { AuthContext } from "../context/AuthContext";
 
 function Account() {
-  const [userLogged, setUserLogged] = useState(false);
   const [LogReg, setLogReg] = useState("register");
+  const { setIsLoggedIn, isLoggedIn } = useContext(AuthContext);
 
-  // * -----------LOGGING IN--------------------
+  console.log(isLoggedIn);
   // ! AUTH CONTEXT!!!
-  const isUserLoggedIn = () => {
-    const token = localStorage.getItem("token");
-    return token ? true : false;
+  const logout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
   };
-
-  // ! AUTH CONTEXT!!!
-  // const logout = () => {
-  //   localStorage.removeItem("token");
-  //   setUserLogged(false);
-  // };
-
-  // ! AUTH CONTEXT!!!
-  console.log(LogReg);
-  useEffect(() => {
-    const isLoggedIn = isUserLoggedIn();
-    if (isLoggedIn) {
-      setUserLogged(true);
-      console.log("User is logged in!");
-    } else {
-      console.log("User is NOT logged in");
-      setUserLogged(false);
-    }
-  }, [userLogged]);
-
   return (
     <>
       <Container className="userAuthContainer">
@@ -49,13 +29,13 @@ function Account() {
           </Col>
 
           <Col xs={8}>
-            {/* <Button onClick={logout}>Logout</Button> */}
+            <Button onClick={logout}>Logout</Button>
             {LogReg === "register" ? (
               <Register setLogReg={setLogReg} />
             ) : (
               <Login setLogReg={setLogReg} />
             )}
-            <GetProfile />
+            {/* <GetProfile /> */}
           </Col>
         </Row>
       </Container>

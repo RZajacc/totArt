@@ -1,8 +1,9 @@
-import { ChangeEvent, FormEvent, useEffect, useState, useContext } from "react";
+import { ChangeEvent, FormEvent, useState, useContext } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import "../styles/accountPage.css";
 import { LoginCredentials } from "../types/types";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   setLogReg: (status: string) => void;
@@ -10,7 +11,10 @@ type Props = {
 
 function Login({ setLogReg }: Props) {
   // * USE CONTEXT DATA
-  const { login } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  console.log("Current user", user?.userName);
 
   //* 1_Setting a login credentials
   const [loginCredentials, setLoginCredentials] =
@@ -29,6 +33,7 @@ function Login({ setLogReg }: Props) {
     e.preventDefault();
     if (loginCredentials) {
       login(loginCredentials);
+      navigate("/contact");
     } else {
       console.log("No credentials provided");
     }
@@ -38,22 +43,6 @@ function Login({ setLogReg }: Props) {
   const handleChangeState = () => {
     setLogReg("register");
   };
-
-  // ! THIS SHOULD GO INTO CONTEXT
-  const isUserLoggedIn = () => {
-    const token = localStorage.getItem("token");
-    return token ? true : false;
-  };
-
-  // ! THIS SHOULD GO INTO CONTEXT
-  useEffect(() => {
-    const isLoggedIn = isUserLoggedIn();
-    if (isLoggedIn) {
-      console.log("User is logged in!");
-    } else {
-      console.log("User is NOT logged in");
-    }
-  }, []);
 
   return (
     <>

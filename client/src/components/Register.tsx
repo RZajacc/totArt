@@ -34,6 +34,7 @@ function Register({ setLogReg }: Props) {
   const handleRegisterSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     registerWithEmail(newUser);
+    setLogReg("login");
   };
 
   return (
