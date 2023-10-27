@@ -1,14 +1,12 @@
-import { useState, useContext } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import Login from "../components/Login";
 import Register from "../components/Register";
 
 import "../styles/accountPage.css";
-import { AuthContext } from "../context/AuthContext";
 
 function Account() {
   const [LogReg, setLogReg] = useState("register");
-  const { logout } = useContext(AuthContext);
 
   return (
     <>
@@ -23,13 +21,11 @@ function Account() {
           </Col>
 
           <Col xs={8}>
-            <Button onClick={logout}>Logout</Button>
             {LogReg === "register" ? (
               <Register setLogReg={setLogReg} />
             ) : (
               <Login setLogReg={setLogReg} />
             )}
-            {/* <GetProfile /> */}
           </Col>
         </Row>
       </Container>
