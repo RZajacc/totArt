@@ -28,17 +28,35 @@ function MyNav() {
                 {user ? (
                   <>
                     <LinkContainer to={"dashboard"}>
-                      <Nav.Link href="#link">Dashboard</Nav.Link>
+                      <Nav.Link href="#link">
+                        <img
+                          src="https://res.cloudinary.com/dqdofxwft/image/upload/v1698504183/other/iepj2zazldghmuvjmchh.svg"
+                          alt="notebook-image"
+                          width={"20px"}
+                        />{" "}
+                        Dashboard
+                      </Nav.Link>
                     </LinkContainer>
                     <LinkContainer to={"account"}>
                       <Button variant="danger" onClick={logout}>
-                        Logout
+                        <img
+                          src="https://res.cloudinary.com/dqdofxwft/image/upload/v1698503714/other/geftubitqi6em6twzzp7.svg"
+                          alt="logout-icon"
+                          width={"20px"}
+                        />
                       </Button>
                     </LinkContainer>
                   </>
                 ) : (
                   <LinkContainer to={"account"}>
-                    <Nav.Link href="#link">Account</Nav.Link>
+                    <Nav.Link href="#link">
+                      <img
+                        src="https://res.cloudinary.com/dqdofxwft/image/upload/v1698503714/other/dq5ojhbs6beoph6qfqze.svg"
+                        alt="user-image"
+                        width={"25px"}
+                      />
+                      Account
+                    </Nav.Link>
                   </LinkContainer>
                 )}
               </Nav>

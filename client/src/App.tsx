@@ -6,6 +6,7 @@ import { dataLoader } from "./utils/DataLoader";
 import Contact from "./views/Contact";
 import Account from "./views/Account";
 import { AuthContextProvider } from "./context/AuthContext";
+import Dashboard from "./views/Dashboard";
 
 function App() {
   const router = createBrowserRouter([
@@ -26,6 +27,11 @@ function App() {
         {
           path: "account",
           element: <Account />,
+        },
+        {
+          path: "dashboard",
+          element: <Dashboard />,
+          // loader: checkAuthLoader,
         },
       ],
     },

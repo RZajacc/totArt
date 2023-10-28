@@ -33,7 +33,7 @@ function Login({ setLogReg }: Props) {
     e.preventDefault();
     if (loginCredentials) {
       login(loginCredentials);
-      navigate("/contact");
+      navigate("/dashboard");
     } else {
       console.log("No credentials provided");
     }
@@ -58,7 +58,7 @@ function Login({ setLogReg }: Props) {
           </p>
         </div>
         <Form onSubmit={handleSubmitLogin}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="user-email">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
@@ -68,13 +68,14 @@ function Login({ setLogReg }: Props) {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3" controlId="user-password">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
               name="password"
               placeholder="Password"
               onChange={handleLoginInput}
+              autoComplete="user-password"
             />
           </Form.Group>
 

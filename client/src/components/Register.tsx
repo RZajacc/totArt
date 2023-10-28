@@ -51,7 +51,7 @@ function Register({ setLogReg }: Props) {
           </p>
         </div>
         <Form onSubmit={handleRegisterSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="username">
             <Form.Label>Username:</Form.Label>
             <Form.Control
               type="text"
@@ -61,7 +61,7 @@ function Register({ setLogReg }: Props) {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="user-email">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
@@ -74,13 +74,14 @@ function Register({ setLogReg }: Props) {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3" controlId="user-password">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
               name="password"
               placeholder="Password"
               onChange={handleInputData}
+              autoComplete="user-password"
             />
           </Form.Group>
 
