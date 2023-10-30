@@ -1,5 +1,4 @@
 body {
-    /* background-color: #d4ff77; */
     background-color: #f8fc7e;
     color: black;
     margin-bottom: 5rem;
@@ -7,4 +6,14 @@ body {
 
 .my-nav {
     background-color: white;
+}
+
+.nav-link {
+    margin-right: 5px;
+}
+
+.nav-link:hover {
+    background-color: #f8fc7e;
+    font-weight: bolder;
+    border-radius: 7%;
 }

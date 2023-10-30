@@ -12,14 +12,6 @@ function Account() {
     <>
       <Container className="userAuthContainer">
         <Row className="justify-content-center">
-          {/* <Col xs={4}>
-            <img
-              src="../src/assets/berlin_wall_theme.jpg"
-              alt="Berlin wall photo"
-              className="berlin_wall_theme"
-            />
-          </Col> */}
-
           <Col xs={8} className="login-register">
             {LogReg === "register" ? (
               <Register setLogReg={setLogReg} />

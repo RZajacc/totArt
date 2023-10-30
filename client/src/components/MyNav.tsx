@@ -8,7 +8,7 @@ function MyNav() {
 
   return (
     <Container className="my-nav" fluid>
-      <Navbar expand="lg">
+      <Navbar expand="sm">
         <Container>
           <div>
             <LinkContainer to={"/"}>
@@ -39,7 +39,7 @@ function MyNav() {
                           alt="notebook-image"
                           width={"20px"}
                         />{" "}
-                        Dashboard
+                        {user.userName}
                       </Nav.Link>
                     </LinkContainer>
                     <LinkContainer to={"account"}>
@@ -48,7 +48,8 @@ function MyNav() {
                           src="https://res.cloudinary.com/dqdofxwft/image/upload/v1698503714/other/geftubitqi6em6twzzp7.svg"
                           alt="logout-icon"
                           width={"20px"}
-                        />
+                        />{" "}
+                        Logout
                       </Button>
                     </LinkContainer>
                   </>

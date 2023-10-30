@@ -46,7 +46,7 @@ function Login({ setLogReg }: Props) {
 
   return (
     <>
-      <Container className="loginContainer">
+      <Container className="account-container">
         <div className="welcome-div">
           <h4>Welcome to TotArt</h4>
           <p>To use all of our functionalities please login to your account</p>
