@@ -7,12 +7,17 @@ function MyNav() {
   const { user, logout } = useContext(AuthContext);
 
   return (
-    <Container>
-      <Navbar expand="lg" className="bg-body-tertiary">
+    <Container className="my-nav" fluid>
+      <Navbar expand="lg">
         <Container>
           <div>
             <LinkContainer to={"/"}>
-              <Navbar.Brand href="#home">TotArt</Navbar.Brand>
+              <Navbar.Brand>
+                <img
+                  src="https://res.cloudinary.com/dqdofxwft/image/upload/v1698666117/other/fo2cwkz4uhiv4zuwmcwp.png"
+                  width={"35px"}
+                />
+              </Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
           </div>
@@ -20,15 +25,15 @@ function MyNav() {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <LinkContainer to={"content"}>
-                  <Nav.Link href="#home">Content</Nav.Link>
+                  <Nav.Link>Content</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to={"contact"}>
-                  <Nav.Link href="#link">Contact</Nav.Link>
+                  <Nav.Link>Contact</Nav.Link>
                 </LinkContainer>
                 {user ? (
                   <>
                     <LinkContainer to={"dashboard"}>
-                      <Nav.Link href="#link">
+                      <Nav.Link>
                         <img
                           src="https://res.cloudinary.com/dqdofxwft/image/upload/v1698504183/other/iepj2zazldghmuvjmchh.svg"
                           alt="notebook-image"
@@ -49,7 +54,7 @@ function MyNav() {
                   </>
                 ) : (
                   <LinkContainer to={"account"}>
-                    <Nav.Link href="#link">
+                    <Nav.Link>
                       <img
                         src="https://res.cloudinary.com/dqdofxwft/image/upload/v1698503714/other/dq5ojhbs6beoph6qfqze.svg"
                         alt="user-image"

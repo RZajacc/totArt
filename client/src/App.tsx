@@ -7,6 +7,7 @@ import Contact from "./views/Contact";
 import Account from "./views/Account";
 import { AuthContextProvider } from "./context/AuthContext";
 import Dashboard from "./views/Dashboard";
+import Home from "./views/Home";
 
 function App() {
   const router = createBrowserRouter([
@@ -15,6 +16,10 @@ function App() {
       element: <Root />,
       errorElement: <ErrorPage />,
       children: [
+        {
+          index: true,
+          element: <Home />,
+        },
         {
           path: "content",
           loader: dataLoader,

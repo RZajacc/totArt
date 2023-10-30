@@ -14,7 +14,7 @@
 }
 
 .statusHandler {
-    color: #61ccff;
+    color: white;
     font-weight: bold;
     text-decoration: underline;
 }
@@ -23,13 +23,14 @@
     font-size: 1.05rem;
     cursor: pointer;
     text-decoration: none;
-    color: #2fd16f;
+    color: white;
 }
 
 .loginContainer {
     padding: 3% 15% 3% 10%;
     border-radius: 3%;
     box-shadow: 5px 15px 15px #888888;
+    background-color: #2fd16f;
 }
 
 .welcome-div {
