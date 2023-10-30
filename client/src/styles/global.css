@@ -17,3 +17,7 @@ body {
     font-weight: bolder;
     border-radius: 7%;
 }
+
+.error-container {
+    margin-top: 3rem;
+}

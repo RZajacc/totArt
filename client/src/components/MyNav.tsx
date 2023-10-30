@@ -15,7 +15,7 @@ function MyNav() {
               <Navbar.Brand>
                 <img
                   src="https://res.cloudinary.com/dqdofxwft/image/upload/v1698666117/other/fo2cwkz4uhiv4zuwmcwp.png"
-                  width={"35px"}
+                  width={"15%"}
                 />
               </Navbar.Brand>
             </LinkContainer>
