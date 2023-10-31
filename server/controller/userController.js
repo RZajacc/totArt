@@ -148,4 +148,20 @@ const getProfle = async (req, res) => {
   }
 };
 
-export { uploadImage, register, login, getProfle };
+const updateUserImage = async (req, res) => {
+  console.log("Server Response", req.body);
+
+  const filter = { email: req.body.email };
+  const update = { userImage: req.body.userImage };
+
+  // const userEmail = req.body.email;
+  let updatedUser = await userModel.findOneAndUpdate(filter, update, {
+    new: true,
+  });
+
+  res.status(200).json({
+    msg: "Image url updated successfully",
+  });
+};
+
+export { uploadImage, register, login, getProfle, updateUserImage };

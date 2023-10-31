@@ -53,7 +53,7 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
     }
   };
 
-  // *2_GET USER
+  // *2_GET USER WITH A TOKEN
   const getUser = async (myToken: string) => {
     if (myToken) {
       const myHeaders = new Headers();
@@ -110,10 +110,8 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
         const token = result.token;
         if (token) {
           localStorage.setItem("token", token);
-          const user: User | undefined = await getUser(token);
-          if (user) {
-            setUser(user);
-          }
+          const user = result.user;
+          setUser(user);
           setIsLoggedIn(true);
         }
       }

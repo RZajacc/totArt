@@ -13,6 +13,7 @@ export interface contentData {
 
 export type UserImage = {
   userImage: string;
+  message: string;
 };
 
 export interface User extends UserImage {
@@ -30,4 +31,8 @@ export type LoggingResponse = {
   msg: string;
   user: User;
   token: string;
+};
+
+export type ImageUrlUpdateResponse = {
+  msg: string;
 };
