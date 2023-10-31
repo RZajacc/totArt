@@ -5,16 +5,16 @@ interface AuthContextType {
   registerWithEmail: (newUser: User) => void;
   login: (loginCredentials: LoginCredentials) => void;
   user: User | null;
-  setIsLoggedIn: (isLogged: boolean) => void;
   logout: () => void;
+  isLoggedIn: boolean;
 }
 
 const AuthInitContext = {
   registerWithEmail: () => console.log("No user registered yet"),
   login: () => console.log("User not logged in yet"),
   user: null,
-  setIsLoggedIn: () => console.log("User not logged in"),
   logout: () => console.log("User is logged out"),
+  isLoggedIn: false,
 };
 
 type AuthContexProviderProps = {
@@ -143,7 +143,7 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
   };
   return (
     <AuthContext.Provider
-      value={{ registerWithEmail, login, user, setIsLoggedIn, logout }}
+      value={{ registerWithEmail, login, user, logout, isLoggedIn }}
     >
       {children}
     </AuthContext.Provider>

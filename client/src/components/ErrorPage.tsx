@@ -1,5 +1,6 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { useNavigate, useRouteError } from "react-router-dom";
+import { Col, Container, Row } from "react-bootstrap";
+import { useRouteError } from "react-router-dom";
+import MyNav from "./MyNav";
 
 type ErrorResponse = {
   data: string;
@@ -9,32 +10,44 @@ type ErrorResponse = {
 
 function ErrorPage() {
   const error = useRouteError() as ErrorResponse;
-  const navigate = useNavigate();
 
-  const handleBack = () => {
-    navigate(-1);
-  };
+  // ? PREPARING MESSAGES TO DISPLAY IN CASE OF DIFFERENT ERROR
+  let title = "An error occured!";
+  let message = "Something went wrong";
+
+  // ? COVERING CURRENTLY KNOWN SITUATIONS WITH ERRORS
+  if (error.status === 500) {
+    message = JSON.parse(error.data).message;
+  }
+
+  if (error.status === 404) {
+    title = "Page not found!";
+    message = "Could not find resource or page.";
+  }
+
+  if (error.status === 503) {
+    title = "Unexpected error has occured!";
+    message = JSON.parse(error.data).message;
+  }
 
   return (
-    <Container className="error-container">
-      <Row className="justify-content-center text-center">
-        <Col xs={5}>
-          <img
-            src="https://res.cloudinary.com/dqdofxwft/image/upload/v1698673454/other/qgzz09ndlrdftje1eb9l.png"
-            width={"85%"}
-          />
-          <h4>Sorry, an unexpected error has occured!</h4>
-          <p>
-            <i>
-              {error.status} {error.statusText}
-            </i>
-          </p>
-          <Button onClick={handleBack} variant="danger">
-            Take me back!
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+    <>
+      <MyNav />
+      <Container className="error-container">
+        <Row className="justify-content-center text-center">
+          <Col xs={5}>
+            <img
+              src="https://res.cloudinary.com/dqdofxwft/image/upload/v1698673454/other/qgzz09ndlrdftje1eb9l.png"
+              width={"85%"}
+            />
+            <h4>{title}</h4>
+            <p>
+              <i>{message}</i>
+            </p>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }
 

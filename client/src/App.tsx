@@ -2,12 +2,13 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
 import Content from "./views/Content";
 import Root from "./components/Root";
-import { dataLoader } from "./utils/DataLoader";
+import { dataLoader } from "./utils/Loaders";
 import Contact from "./views/Contact";
 import Account from "./views/Account";
 import { AuthContextProvider } from "./context/AuthContext";
 import Dashboard from "./views/Dashboard";
 import Home from "./views/Home";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -35,8 +36,11 @@ function App() {
         },
         {
           path: "dashboard",
-          element: <Dashboard />,
-          // loader: checkAuthLoader,
+          element: (
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          ),
         },
       ],
     },

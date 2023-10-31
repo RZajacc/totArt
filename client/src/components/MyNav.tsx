@@ -3,9 +3,12 @@ import { Container, Navbar, Nav, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 
+type Props = {
+  token: string | null | unknown;
+};
+
 function MyNav() {
   const { user, logout } = useContext(AuthContext);
-
   return (
     <Container className="my-nav" fluid>
       <Navbar expand="sm">
@@ -39,7 +42,7 @@ function MyNav() {
                           alt="notebook-image"
                           width={"20px"}
                         />{" "}
-                        {user.userName}
+                        {user?.userName}
                       </Nav.Link>
                     </LinkContainer>
                     <LinkContainer to={"account"}>
