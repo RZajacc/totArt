@@ -7,6 +7,8 @@ interface AuthContextType {
   user: User | null;
   logout: () => void;
   isLoggedIn: boolean;
+  token: string | null;
+  setToken: (token: string | null) => void;
 }
 
 const AuthInitContext = {
@@ -15,6 +17,8 @@ const AuthInitContext = {
   user: null,
   logout: () => console.log("User is logged out"),
   isLoggedIn: false,
+  token: null,
+  setToken: () => console.log("Set token"),
 };
 
 type AuthContexProviderProps = {
@@ -26,6 +30,7 @@ export const AuthContext = createContext<AuthContextType>(AuthInitContext);
 export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
 
   // *1_REGISTER A NEW USER
   const registerWithEmail = async (newUser: User) => {
@@ -111,6 +116,7 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
         const token = result.token;
         if (token) {
           localStorage.setItem("token", token);
+          getUser(token);
           setIsLoggedIn(true);
         }
       }
@@ -139,11 +145,20 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
   // *LOGOUT
   const logout = () => {
     localStorage.removeItem("token");
-    setIsLoggedIn(false);
+    setUser(null);
+    // setIsLoggedIn(false);
   };
   return (
     <AuthContext.Provider
-      value={{ registerWithEmail, login, user, logout, isLoggedIn }}
+      value={{
+        registerWithEmail,
+        login,
+        user,
+        logout,
+        isLoggedIn,
+        token,
+        setToken,
+      }}
     >
       {children}
     </AuthContext.Provider>

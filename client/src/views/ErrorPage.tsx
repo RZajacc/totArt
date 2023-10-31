@@ -1,6 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { useRouteError } from "react-router-dom";
-import MyNav from "./MyNav";
+import MyNav from "../components/MyNav";
 
 type ErrorResponse = {
   data: string;

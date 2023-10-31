@@ -22,20 +22,3 @@ export const dataLoader = async (): Promise<contentData> => {
     );
   }
 };
-
-// export const getAuthToken = () => {
-//   const token = localStorage.getItem("token");
-//   if (!token) {
-//     return null;
-//   }
-//   return token;
-// };
-
-// export const checkAuthLoader = () => {
-//   const token = localStorage.getItem("token");
-//   if (!token) {
-//     return redirect("/account");
-//   }
-
-//   return null;
-// };

@@ -1,8 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import ErrorPage from "./components/ErrorPage";
+import ErrorPage from "./views/ErrorPage";
 import Content from "./views/Content";
 import Root from "./components/Root";
-import { dataLoader } from "./utils/Loaders";
+import { dataLoader } from "./utils/ContentLoaders";
 import Contact from "./views/Contact";
 import Account from "./views/Account";
 import { AuthContextProvider } from "./context/AuthContext";

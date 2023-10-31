@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap";
 
 function Dashboard() {
   const { user } = useContext(AuthContext);
+  console.log("User in dashboard", user);
   return (
     <>
       <Container>

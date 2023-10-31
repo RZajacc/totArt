@@ -21,3 +21,11 @@ body {
 .error-container {
     margin-top: 1rem;
 }
+
+.access-forbidden-container {
+    margin-top: 3%;
+}
+
+.access-forbidden-messages > * {
+    margin: 0.7rem;
+}
