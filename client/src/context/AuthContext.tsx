@@ -6,9 +6,6 @@ interface AuthContextType {
   login: (loginCredentials: LoginCredentials) => void;
   user: User | null;
   logout: () => void;
-  isLoggedIn: boolean;
-  token: string | null;
-  setToken: (token: string | null) => void;
 }
 
 const AuthInitContext = {
@@ -16,9 +13,6 @@ const AuthInitContext = {
   login: () => console.log("User not logged in yet"),
   user: null,
   logout: () => console.log("User is logged out"),
-  isLoggedIn: false,
-  token: null,
-  setToken: () => console.log("Set token"),
 };
 
 type AuthContexProviderProps = {
@@ -30,7 +24,6 @@ export const AuthContext = createContext<AuthContextType>(AuthInitContext);
 export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState<string | null>(null);
 
   // *1_REGISTER A NEW USER
   const registerWithEmail = async (newUser: User) => {
@@ -79,7 +72,8 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
         if (response.ok) {
           const result = await response.json();
           const user = result.user as User;
-          setUser(user);
+          return user;
+          // setUser(user);
         }
       } catch (err) {
         const error = err as Error;
@@ -116,7 +110,10 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
         const token = result.token;
         if (token) {
           localStorage.setItem("token", token);
-          getUser(token);
+          const user: User | undefined = await getUser(token);
+          if (user) {
+            setUser(user);
+          }
           setIsLoggedIn(true);
         }
       }
@@ -127,11 +124,14 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
   };
 
   // *3_CHECK IF USER IS LOGGED IN
-  const isUserLoggedIn = () => {
+  const isUserLoggedIn = async () => {
     const token = localStorage.getItem("token");
     if (token) {
+      const user: User | undefined = await getUser(token);
+      if (user) {
+        setUser(user);
+      }
       setIsLoggedIn(true);
-      getUser(token);
     } else {
       setIsLoggedIn(false);
       setUser(null);
@@ -146,7 +146,7 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
-    // setIsLoggedIn(false);
+    setIsLoggedIn(false);
   };
   return (
     <AuthContext.Provider
@@ -155,9 +155,6 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
         login,
         user,
         logout,
-        isLoggedIn,
-        token,
-        setToken,
       }}
     >
       {children}

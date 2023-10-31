@@ -11,10 +11,8 @@ type Props = {
 
 function Login({ setLogReg }: Props) {
   // * USE CONTEXT DATA
-  const { login, user } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  console.log("Current user", user?.userName);
 
   //* 1_Setting a login credentials
   const [loginCredentials, setLoginCredentials] =
