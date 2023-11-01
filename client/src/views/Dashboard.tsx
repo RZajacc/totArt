@@ -32,7 +32,7 @@ function Dashboard() {
         requestOptions
       );
       const result = (await response.json()) as UserImage;
-      setImageUploadMessage(result.message);
+      setImageUploadMessage("Image was successfully uploaded");
       updateImage(user!.email, result.userImage);
       console.log(result);
       //   setNewUser({ ...newUser, userImage: result.userImage });

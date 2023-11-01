@@ -4,7 +4,7 @@ import { LoggingResponse, LoginCredentials, User } from "../types/types";
 interface AuthContextType {
   registerWithEmail: (newUser: User) => void;
   login: (loginCredentials: LoginCredentials) => void;
-  user: User | null;
+  user: User | null | undefined;
   logout: () => void;
 }
 
@@ -22,7 +22,7 @@ type AuthContexProviderProps = {
 export const AuthContext = createContext<AuthContextType>(AuthInitContext);
 
 export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // *1_REGISTER A NEW USER

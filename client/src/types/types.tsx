@@ -13,7 +13,6 @@ export interface contentData {
 
 export type UserImage = {
   userImage: string;
-  message: string;
 };
 
 export interface User extends UserImage {
