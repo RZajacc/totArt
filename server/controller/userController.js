@@ -32,6 +32,19 @@ const uploadImage = async (req, res) => {
   }
 };
 
+const deleteImage = async (req, res) => {
+  try {
+    const result = await cloudinary.uploader.destroy(req.body.publicId);
+    console.log(result);
+    res.status(200).json({
+      message: "Image deleted successfully",
+      userImage: result,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const register = async (req, res) => {
   console.log("Request body--->", req.body);
 
@@ -164,4 +177,11 @@ const updateUserImage = async (req, res) => {
   });
 };
 
-export { uploadImage, register, login, getProfle, updateUserImage };
+export {
+  uploadImage,
+  deleteImage,
+  register,
+  login,
+  getProfle,
+  updateUserImage,
+};

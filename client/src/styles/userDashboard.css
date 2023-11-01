@@ -18,6 +18,7 @@
     padding: 3%;
     background-color: #2fd16f;
     box-shadow: 7px 5px 15px 2px #888888;
+    text-align: left;
 }
 
 .dashboard-nav-link {
@@ -35,4 +36,32 @@
 
 .dashboard-nav-link:active {
     font-size: bold;
+}
+
+.user-image {
+    margin-left: 30%;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    border: 3px solid lightgray;
+    
+}
+
+.user-data {
+    margin-top: 2rem;
+}
+
+.user-data-label {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.user-data-content {
+    font-weight: normal;
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+
+.user-edit-container {
+    margin-top: 2rem;
 }
