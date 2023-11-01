@@ -18,6 +18,8 @@ function Register({ setLogReg }: Props) {
     email: "",
     password: "",
     userImage: "",
+    website: "",
+    bio: "",
   });
 
   // *2. Receiving input from a form

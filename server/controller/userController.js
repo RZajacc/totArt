@@ -64,6 +64,8 @@ const register = async (req, res) => {
             email: req.body.email,
             password: hashedPassword,
             userImage: req.body.userImage,
+            userWebsite: req.body.website,
+            userBio: req.body.bio,
           });
 
           const savedUser = await newUser.save();

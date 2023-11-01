@@ -17,6 +17,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  userWebsite: {
+    type: String,
+    required: false,
+  },
+  userBio: {
+    type: String,
+    required: false,
+  },
 });
 
 const userModel = mongoose.model("user", userSchema);

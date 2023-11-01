@@ -2,9 +2,7 @@ import { useContext } from "react";
 import { Col, Row } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 
-type Props = {};
-
-function UserProfile({}: Props) {
+function UserProfile() {
   const { user } = useContext(AuthContext);
   return (
     <>
@@ -20,6 +18,10 @@ function UserProfile({}: Props) {
           <Col xs={3}>
             <p className="user-data-content">{user!.userName}</p>
             <p className="user-data-content"> {user!.email}</p>
+            <p className="user-data-content">
+              {user!.website ? user!.website : "n.a"}
+            </p>
+            <p className="user-data-content">{user!.bio ? user!.bio : "n.a"}</p>
           </Col>
         </Row>
       </div>

@@ -37,6 +37,8 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
       "userImage",
       "https://res.cloudinary.com/dqdofxwft/image/upload/v1698072044/other/nil6d9iaml3c6hqfdhly.png"
     );
+    urlencoded.append("website", "");
+    urlencoded.append("bio", "");
 
     const requestOptions = {
       method: "POST",
@@ -75,7 +77,6 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
           const result = await response.json();
           const user = result.user as User;
           return user;
-          // setUser(user);
         }
       } catch (err) {
         const error = err as Error;

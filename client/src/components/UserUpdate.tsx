@@ -2,7 +2,11 @@ import { useContext, ChangeEvent, FormEvent, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/userDashboard.css";
 import { Button, Container, Form } from "react-bootstrap";
-import { updateImage } from "../utils/UserImages";
+import {
+  deleteUserImage,
+  destructureUrlToImageID,
+  updateImage,
+} from "../utils/UserImages";
 import { UserImage } from "../types/types";
 
 function UserUpdate() {
@@ -35,6 +39,17 @@ function UserUpdate() {
       );
       const result = (await response.json()) as UserImage;
       setImageUploadMessage("Image was successfully uploaded");
+
+      // * If user has a default picture don't delete it, but if its custom replace it and delete previous
+      const defImageUrl =
+        "https://res.cloudinary.com/dqdofxwft/image/upload/v1698072044/other/nil6d9iaml3c6hqfdhly.png";
+      if (user!.userImage === defImageUrl) {
+        updateImage(user!.email, result.userImage, setUser, user!);
+      } else {
+        const publicId = destructureUrlToImageID(user!.userImage);
+        deleteUserImage(publicId);
+        updateImage(user!.email, result.userImage, setUser, user!);
+      }
       updateImage(user!.email, result.userImage, setUser, user!);
       console.log(result);
     } catch (error) {
