@@ -5,9 +5,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { updateImage } from "../utils/UserImages";
 import { UserImage } from "../types/types";
 
-type Props = {};
-
-function UserUpdate({}: Props) {
+function UserUpdate() {
   const { user, setUser } = useContext(AuthContext);
 
   const [selectedFile, setSelectedFile] = useState<File | string>("");
