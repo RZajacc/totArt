@@ -5,6 +5,7 @@ interface AuthContextType {
   registerWithEmail: (newUser: User) => void;
   login: (loginCredentials: LoginCredentials) => void;
   user: User | null | undefined;
+  setUser: (newUser: User) => void;
   logout: () => void;
 }
 
@@ -12,6 +13,7 @@ const AuthInitContext = {
   registerWithEmail: () => console.log("No user registered yet"),
   login: () => console.log("User not logged in yet"),
   user: null,
+  setUser: () => console.log("Setting a new user"),
   logout: () => console.log("User is logged out"),
 };
 
@@ -152,6 +154,7 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
         registerWithEmail,
         login,
         user,
+        setUser,
         logout,
       }}
     >

@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { ImageUrlUpdateResponse, UserImage } from "../types/types";
 
 function Dashboard() {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
   const [selectedFile, setSelectedFile] = useState<File | string>("");
   const [imageUploadMessage, setImageUploadMessage] = useState("");
@@ -35,7 +35,6 @@ function Dashboard() {
       setImageUploadMessage("Image was successfully uploaded");
       updateImage(user!.email, result.userImage);
       console.log(result);
-      //   setNewUser({ ...newUser, userImage: result.userImage });
     } catch (error) {
       console.log(error);
       setImageUploadMessage("");
@@ -62,30 +61,65 @@ function Dashboard() {
         requestOptions
       );
       const data = (await response.json()) as ImageUrlUpdateResponse;
+      setUser({ ...user!, userImage: imageUrl });
+      setSelectedFile("");
       console.log(data.msg);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const colsStyle = {
+    border: "1px solid black",
+    padding: "3%",
+    backgroundColor: "#2fd16f",
+  };
+
+  const contStyle = {
+    marginTop: "3%",
+  };
+
   return (
     <>
-      <Container>
-        <h1>Welcome : {user?.userName}</h1>
-        <p>Your email: {user?.email}</p>
-        <img src={user?.userImage} alt="userImage" width={"150px"} />
-        <Form onSubmit={handleFileSubmit}>
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Default file input example</Form.Label>
-            <Form.Control type="file" onChange={handleFileInput} />
-          </Form.Group>
-          <div className="text-center">
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-            {imageUploadMessage ? <p>{imageUploadMessage}</p> : ""}
-          </div>
-        </Form>
+      <Container style={contStyle}>
+        <Row className="justify-content-center text-center">
+          <Col style={colsStyle} xs={2}>
+            <Row>
+              <p>User profile</p>
+            </Row>
+            <Row>
+              <p>Update profile</p>
+            </Row>
+            <Row>
+              <p>Favourites</p>
+            </Row>
+            <Row>
+              <p>Your posts</p>
+            </Row>
+          </Col>
+          <Col style={colsStyle} xs={6}>
+            <h1>Welcome : {user?.userName}</h1>
+            <p>Your email: {user?.email}</p>
+            <img src={user?.userImage} alt="userImage" width={"150px"} />
+            <Form onSubmit={handleFileSubmit}>
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Label>Please select image to upload</Form.Label>
+                <Form.Control
+                  type="file"
+                  onChange={handleFileInput}
+                  name={"asd"}
+                />
+              </Form.Group>
+              <div className="text-center">
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+                <input type="text" disabled={true} placeholder={"userdata"} />
+                {imageUploadMessage ? <p>{imageUploadMessage}</p> : ""}
+              </div>
+            </Form>
+          </Col>
+        </Row>
       </Container>
     </>
   );
