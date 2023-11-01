@@ -3,12 +3,23 @@ import { AuthContext } from "../context/AuthContext";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { ImageUrlUpdateResponse, UserImage } from "../types/types";
 import UserProfile from "../components/UserProfile";
+import "../styles/userDashboard.css";
+import UserUpdate from "../components/UserUpdate";
+import UserFavs from "../components/UserFavs";
+import UserPosts from "../components/UserPosts";
 
 function Dashboard() {
   const { user, setUser } = useContext(AuthContext);
 
   const [selectedFile, setSelectedFile] = useState<File | string>("");
   const [imageUploadMessage, setImageUploadMessage] = useState("");
+
+  // *-----------HANDLE USER NAV-------------------------------
+  const [activeComponent, setActiveComponent] = useState("User profile");
+
+  const userNavHandle = (e) => {
+    setActiveComponent(e.target.innerText);
+  };
 
   // *-----------HANDLE INCOMING DATA---------------------------
   const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,36 +81,44 @@ function Dashboard() {
     }
   };
 
-  const colsStyle = {
-    border: "1px solid black",
-    padding: "3%",
-    backgroundColor: "#2fd16f",
-  };
-
-  const contStyle = {
-    marginTop: "3%",
-  };
-
   return (
     <>
-      <Container style={contStyle}>
+      <Container className="dashboard-container">
         <Row className="justify-content-center text-center">
-          <Col style={colsStyle} xs={2}>
+          <Col className="dashboard-nav-column" xs={2}>
             <Row>
-              <p>User profile</p>
+              <p className="dashboard-nav-link" onClick={userNavHandle}>
+                User profile
+              </p>
             </Row>
             <Row>
-              <p>Update profile</p>
+              <p className="dashboard-nav-link" onClick={userNavHandle}>
+                Update profile
+              </p>
             </Row>
             <Row>
-              <p>Favourites</p>
+              <p className="dashboard-nav-link" onClick={userNavHandle}>
+                Favourites
+              </p>
             </Row>
             <Row>
-              <p>Your posts</p>
+              <p className="dashboard-nav-link" onClick={userNavHandle}>
+                Your posts
+              </p>
             </Row>
           </Col>
-          <Col style={colsStyle} xs={6}>
-            <UserProfile />
+          <Col className="dashboard-data-column" xs={6}>
+            {activeComponent === "User profile" ? (
+              <UserProfile />
+            ) : activeComponent === "Update profile" ? (
+              <UserUpdate />
+            ) : activeComponent === "Favourites" ? (
+              <UserFavs />
+            ) : activeComponent === "Your posts" ? (
+              <UserPosts />
+            ) : (
+              ""
+            )}
           </Col>
           {/* <Col style={colsStyle} xs={6}>
             <h1>Welcome : {user?.userName}</h1>
