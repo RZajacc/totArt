@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { ImageUrlUpdateResponse, UserImage } from "../types/types";
+import UserProfile from "../components/UserProfile";
 
 function Dashboard() {
   const { user, setUser } = useContext(AuthContext);
@@ -98,6 +99,9 @@ function Dashboard() {
             </Row>
           </Col>
           <Col style={colsStyle} xs={6}>
+            <UserProfile />
+          </Col>
+          {/* <Col style={colsStyle} xs={6}>
             <h1>Welcome : {user?.userName}</h1>
             <p>Your email: {user?.email}</p>
             <img src={user?.userImage} alt="userImage" width={"150px"} />
@@ -118,7 +122,7 @@ function Dashboard() {
                 {imageUploadMessage ? <p>{imageUploadMessage}</p> : ""}
               </div>
             </Form>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </>

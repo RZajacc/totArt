@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import Login from "../components/Login";
-import Register from "../components/Register";
+import Login from "../components/UserLogin";
+import Register from "../components/UserRegister";
 
 import "../styles/accountPage.css";
 
