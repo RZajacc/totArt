@@ -62,28 +62,53 @@ function UserUpdate() {
   //  Status - active (input, submit aktywny, edit zmiana do cancel)
   //  Status - typing (input aktywny, submit i edit nie)
 
+  type fieldStatus = {
+    inputField: boolean;
+    editField: boolean;
+    submitField: boolean;
+  };
+
   const idle = { inputField: true, editField: false, submitField: true };
   const active = { inputField: false, editField: false, submitField: false };
   const empty = { inputField: false, editField: false, submitField: true };
-  const [fieldStatus, setFieldStatus] = useState(idle);
+  const [userFieldStatus, setUserFieldStatus] = useState(idle);
+  const [emailFieldStatus, setEmailFieldStatus] = useState(idle);
+  const [websiteFieldStatus, setWebsiteFieldStatus] = useState(idle);
+  const [bioFieldStatus, setBioFieldStatus] = useState(idle);
+
+  const setFieldStatus = (fieldName: string, status: fieldStatus) => {
+    if (fieldName === "user-edit") {
+      setUserFieldStatus(status);
+    }
+    if (fieldName === "email-edit") {
+      setEmailFieldStatus(status);
+    }
+    if (fieldName === "website-edit") {
+      setWebsiteFieldStatus(status);
+    }
+    if (fieldName === "bio-edit") {
+      setBioFieldStatus(status);
+    }
+  };
 
   const handleEditField = (e) => {
+    console.log(e.target.name);
     if (e.target.innerText === "Edit") {
       e.target.innerText = "Cancel";
       e.target.className = "btn btn-danger";
-      setFieldStatus(active);
+      setFieldStatus(e.target.name, active);
     } else {
       e.target.innerText = "Edit";
       e.target.className = "btn btn-info";
-      setFieldStatus(idle);
+      setFieldStatus(e.target.name, idle);
     }
   };
 
   const handleInputChange = (e) => {
     if (e.target.value === "") {
-      setFieldStatus(empty);
+      setFieldStatus(e.target.name, empty);
     } else {
-      setFieldStatus(active);
+      setFieldStatus(e.target.name, active);
     }
   };
 
@@ -105,46 +130,77 @@ function UserUpdate() {
           )}
         </Form>
 
+        {/* USERNAME EDIT */}
         <InputGroup className="mb-3">
           <InputGroup.Text>Username</InputGroup.Text>
           <Form.Control
             aria-label="Username"
-            name="user-input"
+            name="user-edit"
             defaultValue={user?.userName}
-            disabled={fieldStatus.inputField}
+            disabled={userFieldStatus.inputField}
             onChange={handleInputChange}
           />
           <Button
             variant="info"
             name="user-edit"
-            disabled={fieldStatus.editField}
+            disabled={userFieldStatus.editField}
             onClick={handleEditField}
           >
             Edit
           </Button>
-          <Button variant="warning" disabled={fieldStatus.submitField}>
+          <Button variant="warning" disabled={userFieldStatus.submitField}>
             Submit
           </Button>
         </InputGroup>
 
+        {/* EMAIL EDIT */}
         <InputGroup className="mb-3">
           <InputGroup.Text>Email</InputGroup.Text>
           <Form.Control
             aria-label="Email"
             type="email"
             defaultValue={user?.email}
+            name="email-edit"
+            disabled={emailFieldStatus.inputField}
+            onChange={handleInputChange}
           />
-          <Button variant="info">Edit</Button>
-          <Button variant="warning">Submit</Button>
+          <Button
+            variant="info"
+            name="email-edit"
+            disabled={emailFieldStatus.editField}
+            onClick={handleEditField}
+          >
+            Edit
+          </Button>
+          <Button variant="warning" disabled={emailFieldStatus.submitField}>
+            Submit
+          </Button>
         </InputGroup>
 
+        {/* WEBSITE EDIT */}
         <InputGroup className="mb-3">
           <InputGroup.Text>Website</InputGroup.Text>
-          <Form.Control aria-label="Website" defaultValue={user?.website} />
-          <Button variant="info">Edit</Button>
-          <Button variant="warning">Submit</Button>
+          <Form.Control
+            aria-label="Website"
+            defaultValue={user?.website}
+            name="website-edit"
+            disabled={websiteFieldStatus.inputField}
+            onChange={handleInputChange}
+          />
+          <Button
+            variant="info"
+            disabled={websiteFieldStatus.editField}
+            onClick={handleEditField}
+            name="website-edit"
+          >
+            Edit
+          </Button>
+          <Button variant="warning" disabled={websiteFieldStatus.submitField}>
+            Submit
+          </Button>
         </InputGroup>
 
+        {/* BIO EDIT */}
         <InputGroup className="mb-3">
           <InputGroup.Text>Bio</InputGroup.Text>
           <Form.Control
@@ -152,9 +208,21 @@ function UserUpdate() {
             as={"textarea"}
             rows={3}
             defaultValue={user?.bio}
+            name="bio-edit"
+            disabled={bioFieldStatus.inputField}
+            onChange={handleInputChange}
           />
-          <Button variant="info">Edit</Button>
-          <Button variant="warning">Submit</Button>
+          <Button
+            variant="info"
+            disabled={bioFieldStatus.editField}
+            onClick={handleEditField}
+            name="bio-edit"
+          >
+            Edit
+          </Button>
+          <Button variant="warning" disabled={bioFieldStatus.submitField}>
+            Submit
+          </Button>
         </InputGroup>
       </Container>
     </>
