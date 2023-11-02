@@ -39,7 +39,7 @@
 }
 
 .user-image {
-    margin-left: 30%;
+    margin-left: 27%;
     width: 15rem;
     height: 15rem;
     border-radius: 50%;
@@ -64,4 +64,12 @@
 
 .user-edit-container {
     margin-top: 2rem;
+}
+
+.user-edit-container > * {
+    margin-top: 1.5rem;
+}
+
+.input-group-text {
+    width: 7rem;
 }

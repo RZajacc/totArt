@@ -1,7 +1,7 @@
 import { useContext, ChangeEvent, FormEvent, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/userDashboard.css";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Container, Form, InputGroup } from "react-bootstrap";
 import {
   deleteUserImage,
   destructureUrlToImageID,
@@ -62,21 +62,53 @@ function UserUpdate() {
       <img src={user!.userImage} alt="userImage" className={"user-image"} />
       <Container className={"user-edit-container"}>
         <Form onSubmit={handleFileSubmit}>
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Please select image to upload</Form.Label>
-            <Form.Control type="file" name={"asd"} onChange={handleFileInput} />
-          </Form.Group>
-          <div className="text-center">
-            <Button variant="primary" type="submit">
-              Submit
+          <InputGroup>
+            <Form.Control type="file" onChange={handleFileInput} />
+            <Button variant="warning" type="submit">
+              Upload image
             </Button>
-          </div>
+          </InputGroup>
           {imageUploadMessage ? (
             <p className="text-center">{imageUploadMessage}</p>
           ) : (
             ""
           )}
         </Form>
+
+        <InputGroup className="mb-3">
+          <InputGroup.Text>Username</InputGroup.Text>
+          <Form.Control aria-label="Username" defaultValue={user?.userName} />
+          <Button variant="info" name="username-edit">
+            Edit
+          </Button>
+          <Button variant="warning">Submit</Button>
+        </InputGroup>
+
+        <InputGroup className="mb-3">
+          <InputGroup.Text>Email</InputGroup.Text>
+          <Form.Control aria-label="Email" defaultValue={user?.email} />
+          <Button variant="info">Edit</Button>
+          <Button variant="warning">Submit</Button>
+        </InputGroup>
+
+        <InputGroup className="mb-3">
+          <InputGroup.Text>Website</InputGroup.Text>
+          <Form.Control aria-label="Website" defaultValue={user?.website} />
+          <Button variant="info">Edit</Button>
+          <Button variant="warning">Submit</Button>
+        </InputGroup>
+
+        <InputGroup className="mb-3">
+          <InputGroup.Text>Bio</InputGroup.Text>
+          <Form.Control
+            aria-label="Bio"
+            as={"textarea"}
+            rows={3}
+            defaultValue={user?.bio}
+          />
+          <Button variant="info">Edit</Button>
+          <Button variant="warning">Submit</Button>
+        </InputGroup>
       </Container>
     </>
   );
