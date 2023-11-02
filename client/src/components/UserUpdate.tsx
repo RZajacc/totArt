@@ -14,6 +14,7 @@ function UserUpdate() {
 
   const [selectedFile, setSelectedFile] = useState<File | string>("");
   const [imageUploadMessage, setImageUploadMessage] = useState("");
+  const [userNameEditMessage, setUserNameEditMessage] = useState("");
 
   // *-----------HANDLE INCOMING DATA---------------------------
   const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,13 +45,14 @@ function UserUpdate() {
       const defImageUrl =
         "https://res.cloudinary.com/dqdofxwft/image/upload/v1698072044/other/nil6d9iaml3c6hqfdhly.png";
       if (user!.userImage === defImageUrl) {
-        updateImage(user!.email, result.userImage, setUser, user!);
+        setUser({ ...user!, userImage: result.userImage });
+        updateImage(user!.email, "userImage", result.userImage);
       } else {
         const publicId = destructureUrlToImageID(user!.userImage);
+        setUser({ ...user!, userImage: result.userImage });
         deleteUserImage(publicId);
-        updateImage(user!.email, result.userImage, setUser, user!);
+        updateImage(user!.email, "userImage", result.userImage);
       }
-      updateImage(user!.email, result.userImage, setUser, user!);
       console.log(result);
     } catch (error) {
       console.log(error);
@@ -58,16 +60,13 @@ function UserUpdate() {
     }
   };
 
-  //  Status - idle (input, submit nieaktywne)
-  //  Status - active (input, submit aktywny, edit zmiana do cancel)
-  //  Status - typing (input aktywny, submit i edit nie)
-
   type fieldStatus = {
     inputField: boolean;
     editField: boolean;
     submitField: boolean;
   };
 
+  // * STATUSES FOR ALL INPUT FIELDS
   const idle = { inputField: true, editField: false, submitField: true };
   const active = { inputField: false, editField: false, submitField: false };
   const empty = { inputField: false, editField: false, submitField: true };
@@ -76,23 +75,24 @@ function UserUpdate() {
   const [websiteFieldStatus, setWebsiteFieldStatus] = useState(idle);
   const [bioFieldStatus, setBioFieldStatus] = useState(idle);
 
+  // * HELPER FUNCTION TO DEFINE WHICH FIELD IS ACTIVE
   const setFieldStatus = (fieldName: string, status: fieldStatus) => {
-    if (fieldName === "user-edit") {
+    if (fieldName === "userName") {
       setUserFieldStatus(status);
     }
-    if (fieldName === "email-edit") {
+    if (fieldName === "email") {
       setEmailFieldStatus(status);
     }
-    if (fieldName === "website-edit") {
+    if (fieldName === "website") {
       setWebsiteFieldStatus(status);
     }
-    if (fieldName === "bio-edit") {
+    if (fieldName === "bio") {
       setBioFieldStatus(status);
     }
   };
 
+  // * CHANGING THE STATUS AFTER CLICKING EDIT BUTTON
   const handleEditField = (e) => {
-    console.log(e.target.name);
     if (e.target.innerText === "Edit") {
       e.target.innerText = "Cancel";
       e.target.className = "btn btn-danger";
@@ -104,18 +104,29 @@ function UserUpdate() {
     }
   };
 
+  // * CHANGING THE STATUS DEPENDING ON INPUT FIELD
   const handleInputChange = (e) => {
     if (e.target.value === "") {
       setFieldStatus(e.target.name, empty);
     } else {
       setFieldStatus(e.target.name, active);
+      setUser({ ...user!, [`${e.target.name}`]: e.target.value });
     }
   };
 
+  const handleUsernameSubmit = (e) => {
+    e.preventDefault();
+    updateImage(user!.email, "userName", user!.userName);
+    setFieldStatus("userName", idle);
+    setUserNameEditMessage("Username updated properly!");
+  };
+
+  console.log(user);
   return (
     <>
       <img src={user!.userImage} alt="userImage" className={"user-image"} />
       <Container className={"user-edit-container"}>
+        {/* USER IMAGE EDIT */}
         <Form onSubmit={handleFileSubmit}>
           <InputGroup>
             <Form.Control type="file" onChange={handleFileInput} />
@@ -130,29 +141,39 @@ function UserUpdate() {
           )}
         </Form>
 
-        {/* USERNAME EDIT */}
-        <InputGroup className="mb-3">
-          <InputGroup.Text>Username</InputGroup.Text>
-          <Form.Control
-            aria-label="Username"
-            name="user-edit"
-            defaultValue={user?.userName}
-            disabled={userFieldStatus.inputField}
-            onChange={handleInputChange}
-          />
-          <Button
-            variant="info"
-            name="user-edit"
-            disabled={userFieldStatus.editField}
-            onClick={handleEditField}
-          >
-            Edit
-          </Button>
-          <Button variant="warning" disabled={userFieldStatus.submitField}>
-            Submit
-          </Button>
-        </InputGroup>
-
+        <Form onSubmit={handleUsernameSubmit}>
+          {/* USERNAME EDIT */}
+          <InputGroup className="mb-3">
+            <InputGroup.Text>Username</InputGroup.Text>
+            <Form.Control
+              aria-label="Username"
+              name="userName"
+              defaultValue={user?.userName}
+              disabled={userFieldStatus.inputField}
+              onChange={handleInputChange}
+            />
+            <Button
+              variant="info"
+              name="userName"
+              disabled={userFieldStatus.editField}
+              onClick={handleEditField}
+            >
+              Edit
+            </Button>
+            <Button
+              variant="warning"
+              type="submit"
+              disabled={userFieldStatus.submitField}
+            >
+              Submit
+            </Button>
+          </InputGroup>
+          {userNameEditMessage ? (
+            <p className="text-center">{userNameEditMessage}</p>
+          ) : (
+            ""
+          )}
+        </Form>
         {/* EMAIL EDIT */}
         <InputGroup className="mb-3">
           <InputGroup.Text>Email</InputGroup.Text>
@@ -160,13 +181,13 @@ function UserUpdate() {
             aria-label="Email"
             type="email"
             defaultValue={user?.email}
-            name="email-edit"
+            name="email"
             disabled={emailFieldStatus.inputField}
             onChange={handleInputChange}
           />
           <Button
             variant="info"
-            name="email-edit"
+            name="email"
             disabled={emailFieldStatus.editField}
             onClick={handleEditField}
           >
@@ -183,7 +204,7 @@ function UserUpdate() {
           <Form.Control
             aria-label="Website"
             defaultValue={user?.website}
-            name="website-edit"
+            name="website"
             disabled={websiteFieldStatus.inputField}
             onChange={handleInputChange}
           />
@@ -191,7 +212,7 @@ function UserUpdate() {
             variant="info"
             disabled={websiteFieldStatus.editField}
             onClick={handleEditField}
-            name="website-edit"
+            name="website"
           >
             Edit
           </Button>
@@ -208,7 +229,7 @@ function UserUpdate() {
             as={"textarea"}
             rows={3}
             defaultValue={user?.bio}
-            name="bio-edit"
+            name="bio"
             disabled={bioFieldStatus.inputField}
             onChange={handleInputChange}
           />
@@ -216,7 +237,7 @@ function UserUpdate() {
             variant="info"
             disabled={bioFieldStatus.editField}
             onClick={handleEditField}
-            name="bio-edit"
+            name="bio"
           >
             Edit
           </Button>
