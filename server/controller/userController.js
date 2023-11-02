@@ -152,6 +152,8 @@ const getProfle = async (req, res) => {
         userName: req.user.userName,
         email: req.user.email,
         userImage: req.user.userImage,
+        userWebsite: req.user.userWebsite,
+        userBio: req.user.userBio,
       },
     });
   }

@@ -246,7 +246,7 @@ function UserUpdate() {
             <InputGroup.Text>Website</InputGroup.Text>
             <Form.Control
               aria-label="Website"
-              defaultValue={user?.website}
+              defaultValue={user?.userWebsite}
               name="userWebsite"
               disabled={websiteFieldStatus.inputField}
               onChange={handleInputChange}
@@ -282,7 +282,7 @@ function UserUpdate() {
               aria-label="Bio"
               as={"textarea"}
               rows={3}
-              defaultValue={user?.bio}
+              defaultValue={user?.userBio}
               name="userBio"
               disabled={bioFieldStatus.inputField}
               onChange={handleInputChange}
