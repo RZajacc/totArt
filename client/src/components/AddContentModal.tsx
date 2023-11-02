@@ -1,31 +1,48 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 
-type Props = {};
+type newPost = {
+  title: string;
+  description: string;
+  location: string;
+};
 
-const AddContentModal = (props: Props) => {
+const AddContentModal = () => {
   const [show, setShow] = useState(false);
 
+  const [newContent, setNewContent] = useState<newPost>({
+    title: "",
+    description: "",
+    location: "",
+  });
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleInputChange = (e) => {
+    setNewContent({ ...newContent, [`${e.target.name}`]: e.target.value });
+  };
+
+  console.log(newContent);
 
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+        Add new post
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Share some unique content:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Start with giving it a title</Form.Label>
               <Form.Control
-                type="email"
-                placeholder="name@example.com"
+                type="text"
+                placeholder="example title"
+                name="title"
+                onChange={handleInputChange}
                 autoFocus
               />
             </Form.Group>
@@ -33,8 +50,25 @@ const AddContentModal = (props: Props) => {
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Label>Add some description</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="description"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Where was it?</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="location"
+                onChange={handleInputChange}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
