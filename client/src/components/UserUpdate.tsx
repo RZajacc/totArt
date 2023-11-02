@@ -109,11 +109,16 @@ function UserUpdate() {
 
   // * CHANGING THE STATUS DEPENDING ON INPUT FIELD
   const handleInputChange = (e) => {
-    if (e.target.value === "") {
-      setFieldStatus(e.target.name, empty);
-    } else {
+    if (e.target.name === "website" || e.target.name === "bio") {
       setFieldStatus(e.target.name, active);
       setUser({ ...user!, [`${e.target.name}`]: e.target.value });
+    } else {
+      if (e.target.value === "") {
+        setFieldStatus(e.target.name, empty);
+      } else {
+        setFieldStatus(e.target.name, active);
+        setUser({ ...user!, [`${e.target.name}`]: e.target.value });
+      }
     }
   };
 
