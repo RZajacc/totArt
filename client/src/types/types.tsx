@@ -13,8 +13,8 @@ export interface contentData {
 
 export type UserImage = {
   userImage: string;
-  website: string;
-  bio: string;
+  userWebsite: string;
+  userBio: string;
 };
 
 export interface User extends UserImage {
@@ -36,4 +36,10 @@ export type LoggingResponse = {
 
 export type ImageUrlUpdateResponse = {
   msg: string;
+};
+
+export type editFieldStatus = {
+  inputField: boolean;
+  editField: boolean;
+  submitField: boolean;
 };

@@ -1,12 +1,17 @@
 import { Card, Container, ListGroup } from "react-bootstrap";
 import { useLoaderData } from "react-router-dom";
 import { contentData } from "../types/types";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import AddContentModal from "../components/AddContentModal";
 
 function Content() {
   const { number, posts } = useLoaderData() as contentData;
+  const { user } = useContext(AuthContext);
 
   return (
     <>
+      {user ? <AddContentModal /> : ""}
       <Container>
         <Card style={{ width: "18rem" }}>
           <Card.Img variant="top" src={posts[0].imageUrl} />

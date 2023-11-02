@@ -7,11 +7,12 @@ import {
   destructureUrlToImageID,
   updateUserData,
 } from "../utils/UserEditTools";
-import { UserImage } from "../types/types";
+import { UserImage, editFieldStatus } from "../types/types";
 
 function UserUpdate() {
   const { user, setUser } = useContext(AuthContext);
 
+  //* ---------UPDATE DATA MESSAGES---------------------------------
   const [selectedFile, setSelectedFile] = useState<File | string>("");
   const [imageUploadMessage, setImageUploadMessage] = useState("");
   const [userNameEditMessage, setUserNameEditMessage] = useState("");
@@ -63,12 +64,6 @@ function UserUpdate() {
     }
   };
 
-  type fieldStatus = {
-    inputField: boolean;
-    editField: boolean;
-    submitField: boolean;
-  };
-
   // * STATUSES FOR ALL INPUT FIELDS
   const idle = { inputField: true, editField: false, submitField: true };
   const active = { inputField: false, editField: false, submitField: false };
@@ -79,17 +74,17 @@ function UserUpdate() {
   const [bioFieldStatus, setBioFieldStatus] = useState(idle);
 
   // * HELPER FUNCTION TO DEFINE WHICH FIELD IS ACTIVE
-  const setFieldStatus = (fieldName: string, status: fieldStatus) => {
+  const setFieldStatus = (fieldName: string, status: editFieldStatus) => {
     if (fieldName === "userName") {
       setUserFieldStatus(status);
     }
     if (fieldName === "email") {
       setEmailFieldStatus(status);
     }
-    if (fieldName === "website") {
+    if (fieldName === "userWebsite") {
       setWebsiteFieldStatus(status);
     }
-    if (fieldName === "bio") {
+    if (fieldName === "userBio") {
       setBioFieldStatus(status);
     }
   };
@@ -108,8 +103,8 @@ function UserUpdate() {
   };
 
   // * CHANGING THE STATUS DEPENDING ON INPUT FIELD
-  const handleInputChange = (e) => {
-    if (e.target.name === "website" || e.target.name === "bio") {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.name === "userWebsite" || e.target.name === "userBio") {
       setFieldStatus(e.target.name, active);
       setUser({ ...user!, [`${e.target.name}`]: e.target.value });
     } else {
@@ -144,7 +139,7 @@ function UserUpdate() {
     e.target[1].className = "btn btn-info";
     e.target[1].innerText = "Edit";
     e.preventDefault();
-    updateUserData(user!.email, "website", user!.website);
+    updateUserData(user!.email, "userWebsite", user!.userWebsite);
     setFieldStatus("website", idle);
     setWebsiteEditMessage("Website url updated properly!");
   };
@@ -152,7 +147,7 @@ function UserUpdate() {
     e.target[1].className = "btn btn-info";
     e.target[1].innerText = "Edit";
     e.preventDefault();
-    updateUserData(user!.email, "bio", user!.bio);
+    updateUserData(user!.email, "userBio", user!.userBio);
     setFieldStatus("bio", idle);
     setBioEditMessage("Your bio updated properly!");
   };
@@ -252,7 +247,7 @@ function UserUpdate() {
             <Form.Control
               aria-label="Website"
               defaultValue={user?.website}
-              name="website"
+              name="userWebsite"
               disabled={websiteFieldStatus.inputField}
               onChange={handleInputChange}
             />
@@ -260,7 +255,7 @@ function UserUpdate() {
               variant="info"
               disabled={websiteFieldStatus.editField}
               onClick={handleEditField}
-              name="website"
+              name="userWebsite"
             >
               Edit
             </Button>
@@ -288,7 +283,7 @@ function UserUpdate() {
               as={"textarea"}
               rows={3}
               defaultValue={user?.bio}
-              name="bio"
+              name="userBio"
               disabled={bioFieldStatus.inputField}
               onChange={handleInputChange}
             />
@@ -296,7 +291,7 @@ function UserUpdate() {
               variant="info"
               disabled={bioFieldStatus.editField}
               onClick={handleEditField}
-              name="bio"
+              name="userBio"
             >
               Edit
             </Button>

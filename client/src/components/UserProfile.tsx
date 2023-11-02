@@ -15,13 +15,15 @@ function UserProfile() {
             <p>Website:</p>
             <p>Bio:</p>
           </Col>
-          <Col xs={3}>
+          <Col xs={8}>
             <p className="user-data-content">{user!.userName}</p>
             <p className="user-data-content"> {user!.email}</p>
             <p className="user-data-content">
-              {user!.website ? user!.website : "-"}
+              {user!.userWebsite ? user!.userWebsite : "-"}
             </p>
-            <p className="user-data-content">{user!.bio ? user!.bio : "-"}</p>
+            <p className="user-data-content">
+              {user!.userBio ? user!.userBio : "-"}
+            </p>
           </Col>
         </Row>
       </div>
