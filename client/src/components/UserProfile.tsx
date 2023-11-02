@@ -19,9 +19,9 @@ function UserProfile() {
             <p className="user-data-content">{user!.userName}</p>
             <p className="user-data-content"> {user!.email}</p>
             <p className="user-data-content">
-              {user!.website ? user!.website : "n.a"}
+              {user!.website ? user!.website : "-"}
             </p>
-            <p className="user-data-content">{user!.bio ? user!.bio : "n.a"}</p>
+            <p className="user-data-content">{user!.bio ? user!.bio : "-"}</p>
           </Col>
         </Row>
       </div>

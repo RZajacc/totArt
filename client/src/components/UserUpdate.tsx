@@ -57,6 +57,36 @@ function UserUpdate() {
       setImageUploadMessage("");
     }
   };
+
+  //  Status - idle (input, submit nieaktywne)
+  //  Status - active (input, submit aktywny, edit zmiana do cancel)
+  //  Status - typing (input aktywny, submit i edit nie)
+
+  const idle = { inputField: true, editField: false, submitField: true };
+  const active = { inputField: false, editField: false, submitField: false };
+  const empty = { inputField: false, editField: false, submitField: true };
+  const [fieldStatus, setFieldStatus] = useState(idle);
+
+  const handleEditField = (e) => {
+    if (e.target.innerText === "Edit") {
+      e.target.innerText = "Cancel";
+      e.target.className = "btn btn-danger";
+      setFieldStatus(active);
+    } else {
+      e.target.innerText = "Edit";
+      e.target.className = "btn btn-info";
+      setFieldStatus(idle);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    if (e.target.value === "") {
+      setFieldStatus(empty);
+    } else {
+      setFieldStatus(active);
+    }
+  };
+
   return (
     <>
       <img src={user!.userImage} alt="userImage" className={"user-image"} />
@@ -77,16 +107,33 @@ function UserUpdate() {
 
         <InputGroup className="mb-3">
           <InputGroup.Text>Username</InputGroup.Text>
-          <Form.Control aria-label="Username" defaultValue={user?.userName} />
-          <Button variant="info" name="username-edit">
+          <Form.Control
+            aria-label="Username"
+            name="user-input"
+            defaultValue={user?.userName}
+            disabled={fieldStatus.inputField}
+            onChange={handleInputChange}
+          />
+          <Button
+            variant="info"
+            name="user-edit"
+            disabled={fieldStatus.editField}
+            onClick={handleEditField}
+          >
             Edit
           </Button>
-          <Button variant="warning">Submit</Button>
+          <Button variant="warning" disabled={fieldStatus.submitField}>
+            Submit
+          </Button>
         </InputGroup>
 
         <InputGroup className="mb-3">
           <InputGroup.Text>Email</InputGroup.Text>
-          <Form.Control aria-label="Email" defaultValue={user?.email} />
+          <Form.Control
+            aria-label="Email"
+            type="email"
+            defaultValue={user?.email}
+          />
           <Button variant="info">Edit</Button>
           <Button variant="warning">Submit</Button>
         </InputGroup>
