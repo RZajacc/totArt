@@ -15,6 +15,9 @@ function UserUpdate() {
   const [selectedFile, setSelectedFile] = useState<File | string>("");
   const [imageUploadMessage, setImageUploadMessage] = useState("");
   const [userNameEditMessage, setUserNameEditMessage] = useState("");
+  const [emailEditMessage, setEmailEditMessage] = useState("");
+  const [websiteEditMessage, setWebsiteEditMessage] = useState("");
+  const [bioEditMessage, setBioEditMessage] = useState("");
 
   // *-----------HANDLE INCOMING DATA---------------------------
   const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -123,7 +126,32 @@ function UserUpdate() {
     setUserNameEditMessage("Username updated properly!");
   };
 
-  console.log(user);
+  const handleEmailSubmit = (e) => {
+    e.target[1].className = "btn btn-info";
+    e.target[1].innerText = "Edit";
+    e.preventDefault();
+    updateUserData(user!.email, "email", user!.email);
+    setFieldStatus("email", idle);
+    setEmailEditMessage("Email updated properly!");
+  };
+
+  const handleWebsiteSubmit = (e) => {
+    e.target[1].className = "btn btn-info";
+    e.target[1].innerText = "Edit";
+    e.preventDefault();
+    updateUserData(user!.email, "website", user!.website);
+    setFieldStatus("website", idle);
+    setWebsiteEditMessage("Website url updated properly!");
+  };
+  const handleBioSubmit = (e) => {
+    e.target[1].className = "btn btn-info";
+    e.target[1].innerText = "Edit";
+    e.preventDefault();
+    updateUserData(user!.email, "bio", user!.bio);
+    setFieldStatus("bio", idle);
+    setBioEditMessage("Your bio updated properly!");
+  };
+
   return (
     <>
       <img src={user!.userImage} alt="userImage" className={"user-image"} />
@@ -143,8 +171,8 @@ function UserUpdate() {
           )}
         </Form>
 
+        {/* USERNAME EDIT */}
         <Form onSubmit={handleUsernameSubmit}>
-          {/* USERNAME EDIT */}
           <InputGroup className="mb-3">
             <InputGroup.Text>Username</InputGroup.Text>
             <Form.Control
@@ -176,77 +204,111 @@ function UserUpdate() {
             ""
           )}
         </Form>
+
         {/* EMAIL EDIT */}
-        <InputGroup className="mb-3">
-          <InputGroup.Text>Email</InputGroup.Text>
-          <Form.Control
-            aria-label="Email"
-            type="email"
-            defaultValue={user?.email}
-            name="email"
-            disabled={emailFieldStatus.inputField}
-            onChange={handleInputChange}
-          />
-          <Button
-            variant="info"
-            name="email"
-            disabled={emailFieldStatus.editField}
-            onClick={handleEditField}
-          >
-            Edit
-          </Button>
-          <Button variant="warning" disabled={emailFieldStatus.submitField}>
-            Submit
-          </Button>
-        </InputGroup>
+        <Form onSubmit={handleEmailSubmit}>
+          <InputGroup className="mb-3">
+            <InputGroup.Text>Email</InputGroup.Text>
+            <Form.Control
+              aria-label="Email"
+              defaultValue={user?.email}
+              name="email"
+              type="email"
+              disabled={emailFieldStatus.inputField}
+              onChange={handleInputChange}
+            />
+            <Button
+              variant="info"
+              name="email"
+              disabled={emailFieldStatus.editField}
+              onClick={handleEditField}
+            >
+              Edit
+            </Button>
+            <Button
+              variant="warning"
+              type="submit"
+              disabled={emailFieldStatus.submitField}
+            >
+              Submit
+            </Button>
+          </InputGroup>
+          {emailEditMessage ? (
+            <p className="text-center">{emailEditMessage}</p>
+          ) : (
+            ""
+          )}
+        </Form>
 
         {/* WEBSITE EDIT */}
-        <InputGroup className="mb-3">
-          <InputGroup.Text>Website</InputGroup.Text>
-          <Form.Control
-            aria-label="Website"
-            defaultValue={user?.website}
-            name="website"
-            disabled={websiteFieldStatus.inputField}
-            onChange={handleInputChange}
-          />
-          <Button
-            variant="info"
-            disabled={websiteFieldStatus.editField}
-            onClick={handleEditField}
-            name="website"
-          >
-            Edit
-          </Button>
-          <Button variant="warning" disabled={websiteFieldStatus.submitField}>
-            Submit
-          </Button>
-        </InputGroup>
+        <Form onSubmit={handleWebsiteSubmit}>
+          <InputGroup className="mb-3">
+            <InputGroup.Text>Website</InputGroup.Text>
+            <Form.Control
+              aria-label="Website"
+              defaultValue={user?.website}
+              name="website"
+              disabled={websiteFieldStatus.inputField}
+              onChange={handleInputChange}
+            />
+            <Button
+              variant="info"
+              disabled={websiteFieldStatus.editField}
+              onClick={handleEditField}
+              name="website"
+            >
+              Edit
+            </Button>
+            <Button
+              variant="warning"
+              type="submit"
+              disabled={websiteFieldStatus.submitField}
+            >
+              Submit
+            </Button>
+          </InputGroup>
+          {websiteEditMessage ? (
+            <p className="text-center">{websiteEditMessage}</p>
+          ) : (
+            ""
+          )}
+        </Form>
 
         {/* BIO EDIT */}
-        <InputGroup className="mb-3">
-          <InputGroup.Text>Bio</InputGroup.Text>
-          <Form.Control
-            aria-label="Bio"
-            as={"textarea"}
-            rows={3}
-            defaultValue={user?.bio}
-            name="bio"
-            disabled={bioFieldStatus.inputField}
-            onChange={handleInputChange}
-          />
-          <Button
-            variant="info"
-            disabled={bioFieldStatus.editField}
-            onClick={handleEditField}
-            name="bio"
-          >
-            Edit
-          </Button>
-          <Button variant="warning" disabled={bioFieldStatus.submitField}>
-            Submit
-          </Button>
-        </InputGroup>
+        <Form onSubmit={handleBioSubmit}>
+          <InputGroup className="mb-3">
+            <InputGroup.Text>Bio</InputGroup.Text>
+            <Form.Control
+              aria-label="Bio"
+              as={"textarea"}
+              rows={3}
+              defaultValue={user?.bio}
+              name="bio"
+              disabled={bioFieldStatus.inputField}
+              onChange={handleInputChange}
+            />
+            <Button
+              variant="info"
+              disabled={bioFieldStatus.editField}
+              onClick={handleEditField}
+              name="bio"
+            >
+              Edit
+            </Button>
+            <Button
+              variant="warning"
+              type="submit"
+              disabled={bioFieldStatus.submitField}
+            >
+              Submit
+            </Button>
+          </InputGroup>
+          {bioEditMessage ? (
+            <p className="text-center">{bioEditMessage}</p>
+          ) : (
+            ""
+          )}
+        </Form>
       </Container>
     </>
   );
