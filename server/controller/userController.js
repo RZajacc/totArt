@@ -163,23 +163,7 @@ const getProfle = async (req, res) => {
   }
 };
 
-// const updateUserImage = async (req, res) => {
-//   console.log("Server Response", req.body);
-
-//   const filter = { email: req.body.email };
-//   const update = { userImage: req.body.userImage };
-
-//   // const userEmail = req.body.email;
-//   let updatedUser = await userModel.findOneAndUpdate(filter, update, {
-//     new: true,
-//   });
-
-//   res.status(200).json({
-//     msg: "Image url updated successfully",
-//   });
-// };
-
-const updateUserImage = async (req, res) => {
+const updateUserData = async (req, res) => {
   console.log("Server Response", req.body);
   const elementName = req.body.elementName;
   const elementValue = req.body.elementValue;
@@ -196,11 +180,4 @@ const updateUserImage = async (req, res) => {
   });
 };
 
-export {
-  uploadImage,
-  deleteImage,
-  register,
-  login,
-  getProfle,
-  updateUserImage,
-};
+export { uploadImage, deleteImage, register, login, getProfle, updateUserData };

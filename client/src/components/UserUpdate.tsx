@@ -5,8 +5,8 @@ import { Button, Container, Form, InputGroup } from "react-bootstrap";
 import {
   deleteUserImage,
   destructureUrlToImageID,
-  updateImage,
-} from "../utils/UserImages";
+  updateUserData,
+} from "../utils/UserEditTools";
 import { UserImage } from "../types/types";
 
 function UserUpdate() {
@@ -46,12 +46,12 @@ function UserUpdate() {
         "https://res.cloudinary.com/dqdofxwft/image/upload/v1698072044/other/nil6d9iaml3c6hqfdhly.png";
       if (user!.userImage === defImageUrl) {
         setUser({ ...user!, userImage: result.userImage });
-        updateImage(user!.email, "userImage", result.userImage);
+        updateUserData(user!.email, "userImage", result.userImage);
       } else {
         const publicId = destructureUrlToImageID(user!.userImage);
         setUser({ ...user!, userImage: result.userImage });
         deleteUserImage(publicId);
-        updateImage(user!.email, "userImage", result.userImage);
+        updateUserData(user!.email, "userImage", result.userImage);
       }
       console.log(result);
     } catch (error) {
@@ -115,8 +115,10 @@ function UserUpdate() {
   };
 
   const handleUsernameSubmit = (e) => {
+    e.target[1].className = "btn btn-info";
+    e.target[1].innerText = "Edit";
     e.preventDefault();
-    updateImage(user!.email, "userName", user!.userName);
+    updateUserData(user!.email, "userName", user!.userName);
     setFieldStatus("userName", idle);
     setUserNameEditMessage("Username updated properly!");
   };
