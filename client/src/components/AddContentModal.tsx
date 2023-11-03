@@ -87,8 +87,6 @@ const AddContentModal = () => {
       console.log(error);
     }
   };
-
-  console.log(newContent);
   return (
     <>
       <Container className="modal-container">
@@ -107,7 +105,7 @@ const AddContentModal = () => {
           <Modal.Body>
             <Form onSubmit={handleFileSubmit}>
               <InputGroup>
-                <Form.Control type="file" onChange={handleFileInput} />
+                <Form.Control type="file" onChange={handleFileInput} required />
                 <Button variant="warning" type="submit">
                   Upload image
                 </Button>
