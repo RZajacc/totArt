@@ -7,14 +7,14 @@ import AddContentModal from "../components/AddContentModal";
 import "../styles/contentPage.css";
 
 function Content() {
-  const { number, posts } = useLoaderData() as contentData;
+  const { posts } = useLoaderData() as contentData;
   const { user } = useContext(AuthContext);
 
   return (
     <>
       {user ? <AddContentModal /> : ""}
       <Container className="content-container">
-        <Row xs={4} md={4} className="g-4">
+        <Row xs={1} sm={2} md={3} lg={4} className="g-4">
           {posts &&
             posts.map((post, index) => {
               return (

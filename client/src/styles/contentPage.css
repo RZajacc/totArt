@@ -47,3 +47,28 @@
     cursor: pointer;
     font-weight: bold;
 }
+
+.details-container {
+    margin-top: 2%;
+}
+
+.image-title {
+    font-style: italic;
+    font-weight: 100;
+    color: green;
+}
+
+.details-image {
+    border-radius: 10%;
+    margin-top: 2%;
+}
+
+.image-info {
+    margin-top: 2%;
+}
+
+.details-text {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: green;
+}
