@@ -4,6 +4,7 @@ import { contentData } from "../types/types";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import AddContentModal from "../components/AddContentModal";
+import "../styles/contentPage.css";
 
 function Content() {
   const { number, posts } = useLoaderData() as contentData;
@@ -12,16 +13,20 @@ function Content() {
   return (
     <>
       {user ? <AddContentModal /> : ""}
-      <Container>
+      <Container className="content-container">
         <Row xs={4} md={4} className="g-4">
           {posts &&
             posts.map((post, index) => {
               return (
                 <>
                   <Col key={index}>
-                    <Card>
-                      <Card.Img variant="top" src={post.imageUrl} />
-                      <Card.Body>
+                    <Card className="content-card">
+                      <Card.Img
+                        variant="top"
+                        src={post.imageUrl}
+                        className="content-image"
+                      />
+                      <Card.Body className="text-center">
                         <Card.Title>{post.title}</Card.Title>
                         <Card.Text>{post.description}</Card.Text>
                         <Card.Text>{post.location}</Card.Text>

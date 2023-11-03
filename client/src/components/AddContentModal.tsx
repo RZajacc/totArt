@@ -1,6 +1,8 @@
-import { useState, ChangeEvent, FormEvent } from "react";
-import { Button, Form, InputGroup, Modal } from "react-bootstrap";
+import { useState, ChangeEvent, FormEvent, useContext } from "react";
+import { Button, Container, Form, InputGroup, Modal } from "react-bootstrap";
 import { UserImage } from "../types/types";
+import "../styles/contentPage.css";
+import { AuthContext } from "../context/AuthContext";
 
 type newPost = {
   title: string;
@@ -13,6 +15,7 @@ const AddContentModal = () => {
   const [show, setShow] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | string>("");
   const [imageUploadMessage, setImageUploadMessage] = useState("");
+  const { user } = useContext(AuthContext);
 
   const [newContent, setNewContent] = useState<newPost>({
     title: "",
@@ -88,72 +91,81 @@ const AddContentModal = () => {
   console.log(newContent);
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Add new post
-      </Button>
+      <Container className="modal-container">
+        <p className="add-content-p">
+          <strong>{user?.userName}</strong> - to add new content press a button
+          :{" "}
+        </p>
+        <Button variant="dark" onClick={handleShow}>
+          Add content
+        </Button>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Share some unique content:</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleFileSubmit}>
-            <InputGroup>
-              <Form.Control type="file" onChange={handleFileInput} />
-              <Button variant="warning" type="submit">
-                Upload image
-              </Button>
-            </InputGroup>
-            {imageUploadMessage ? (
-              <p className="text-center">{imageUploadMessage}</p>
-            ) : (
-              ""
-            )}
-          </Form>
-          <Form onSubmit={submitNewPost}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Start with giving it a title</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="example title"
-                name="title"
-                onChange={handleInputChange}
-                autoFocus
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Add some description</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                name="description"
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Where was it?</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                name="location"
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Button type="submit">Submit</Button>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Share some unique content:</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleFileSubmit}>
+              <InputGroup>
+                <Form.Control type="file" onChange={handleFileInput} />
+                <Button variant="warning" type="submit">
+                  Upload image
+                </Button>
+              </InputGroup>
+              {imageUploadMessage ? (
+                <p className="text-center">{imageUploadMessage}</p>
+              ) : (
+                ""
+              )}
+            </Form>
+            <Form onSubmit={submitNewPost}>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Start with giving it a title</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="example title"
+                  name="title"
+                  onChange={handleInputChange}
+                  autoFocus
+                />
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>Add some description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  name="description"
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>Where was it?</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  name="location"
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Button type="submit">Submit</Button>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Container>
     </>
   );
 };
