@@ -1,5 +1,5 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { Link, NavLink, useLoaderData } from "react-router-dom";
 import { contentData } from "../types/types";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -28,10 +28,13 @@ function Content() {
                       />
                       <Card.Body className="text-center">
                         <Card.Title>{post.title}</Card.Title>
-                        <Card.Text>{post.description}</Card.Text>
-                        <Card.Text>{post.location}</Card.Text>
-                        <Card.Link>
-                          <NavLink to={post._id}>Go to</NavLink>
+                        <Card.Link className={"go-to-details-button"}>
+                          <Link
+                            to={post._id}
+                            className={"go-to-details-button"}
+                          >
+                            See more
+                          </Link>
                         </Card.Link>
                       </Card.Body>
                     </Card>

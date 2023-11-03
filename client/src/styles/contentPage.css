@@ -34,3 +34,16 @@
 .modal-body > * {
     padding: 5px;
 }
+
+.go-to-details-button{
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    padding: 5px;
+    border-radius: 15%;
+}
+
+.go-to-details-button:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
