@@ -36,4 +36,11 @@ const getDetails = async (req, res) => {
   });
 };
 
-export { getAllPosts, addNewPost, getDetails };
+const getAllUserPosts = async (req, res) => {
+  const posts = await postModel
+    .find({})
+    .populate({ path: "user", select: ["email"] });
+  console.log(posts);
+};
+
+export { getAllPosts, addNewPost, getDetails, getAllUserPosts };

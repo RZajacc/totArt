@@ -17,6 +17,7 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
 });
 
 const postModel = mongoose.model("post", postSchema);
