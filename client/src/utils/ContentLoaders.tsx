@@ -22,3 +22,29 @@ export const dataLoader = async (): Promise<contentData> => {
     );
   }
 };
+
+export const detailsLoader = async ({ params }) => {
+  console.log("Params", params);
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+  const urlencoded = new URLSearchParams();
+  urlencoded.append("id", params.id);
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: urlencoded,
+  };
+
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/posts/details",
+      requestOptions
+    );
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};

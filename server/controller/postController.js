@@ -26,4 +26,14 @@ const addNewPost = async (req, res) => {
   } catch (error) {}
 };
 
-export { getAllPosts, addNewPost };
+const getDetails = async (req, res) => {
+  const postData = await postModel.findOne({ _id: req.body.id });
+  res.json({
+    title: postData.title,
+    description: postData.description,
+    location: postData.location,
+    imageUrl: postData.imageUrl,
+  });
+};
+
+export { getAllPosts, addNewPost, getDetails };

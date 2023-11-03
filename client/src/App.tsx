@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./views/ErrorPage";
 import Content from "./views/Content";
 import Root from "./components/Root";
-import { dataLoader } from "./utils/ContentLoaders";
+import { dataLoader, detailsLoader } from "./utils/ContentLoaders";
 import Contact from "./views/Contact";
 import Account from "./views/Account";
 import { AuthContextProvider } from "./context/AuthContext";
@@ -30,6 +30,7 @@ function App() {
         {
           path: "content/:id",
           element: <ContentDetails />,
+          loader: detailsLoader,
         },
         {
           path: "contact",
