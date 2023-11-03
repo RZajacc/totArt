@@ -31,6 +31,7 @@ function UserUpdate() {
 
     const formdata = new FormData();
     formdata.append("userImage", selectedFile);
+    formdata.append("folder", "userImages");
 
     const requestOptions = {
       method: "POST",

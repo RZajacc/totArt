@@ -10,7 +10,7 @@ const uploadImage = async (req, res) => {
     use_filename: true,
     unique_filename: false,
     overwrite: true,
-    folder: "userImages",
+    folder: req.body.folder,
   };
 
   if (req.file) {
