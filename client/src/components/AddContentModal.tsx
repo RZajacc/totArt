@@ -1,15 +1,9 @@
 import { useState, ChangeEvent, FormEvent, useContext } from "react";
 import { Button, Container, Form, InputGroup, Modal } from "react-bootstrap";
-import { UserImage } from "../types/types";
+import { UserImage, post } from "../types/types";
 import "../styles/contentPage.css";
 import { AuthContext } from "../context/AuthContext";
-
-type newPost = {
-  title: string;
-  description: string;
-  location: string;
-  imageUrl: string;
-};
+import { updateUserData } from "../utils/UserEditTools";
 
 const AddContentModal = () => {
   const [show, setShow] = useState(false);
@@ -17,11 +11,13 @@ const AddContentModal = () => {
   const [imageUploadMessage, setImageUploadMessage] = useState("");
   const { user } = useContext(AuthContext);
 
-  const [newContent, setNewContent] = useState<newPost>({
+  const [newContent, setNewContent] = useState<post>({
+    _id: " ",
     title: "",
     description: "",
     location: "",
     imageUrl: "",
+    author: "",
   });
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -39,6 +35,7 @@ const AddContentModal = () => {
     urlencoded.append("description", newContent.description);
     urlencoded.append("location", newContent.location);
     urlencoded.append("imageUrl", newContent.imageUrl);
+    urlencoded.append("author", user!._id);
 
     const requestOptions = {
       method: "POST",
@@ -52,12 +49,14 @@ const AddContentModal = () => {
         requestOptions
       );
       const result = await response.json();
-      console.log(result);
+      updateUserData(user!.email, "posts", result.postId);
+      // console.log(result);
     } catch (error) {
       console.log(error);
     }
   };
 
+  console.log(user);
   // *-----------HANDLE INCOMING DATA---------------------------
   const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedFile(e.target.files ? e.target.files[0] : "");
@@ -87,6 +86,7 @@ const AddContentModal = () => {
       console.log(error);
     }
   };
+
   return (
     <>
       <Container className="modal-container">

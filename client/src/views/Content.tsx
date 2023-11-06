@@ -19,12 +19,13 @@ function Content() {
             posts.map((post, index) => {
               return (
                 <>
-                  <Col key={index}>
+                  <Col>
                     <Card className="content-card">
                       <Card.Img
                         variant="top"
                         src={post.imageUrl}
                         className="content-image"
+                        key={index}
                       />
                       <Card.Body className="text-center">
                         <Card.Title>{post.title}</Card.Title>

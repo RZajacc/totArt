@@ -3,6 +3,7 @@ import userModel from "../models/userModel.js";
 
 const getAllPosts = async (req, res) => {
   const allPosts = await postModel.find();
+  // const allPosts = await postModel.find().populate({ path: "author" });
 
   res.json({
     number: allPosts.length,
@@ -17,12 +18,14 @@ const addNewPost = async (req, res) => {
     description: req.body.description,
     location: req.body.location,
     imageUrl: req.body.imageUrl,
+    author: req.body.author,
   });
 
   try {
     const savedPost = newPost.save();
     res.status(201).json({
-      msg: "new image uploaded",
+      msg: "new post uploaded uploaded",
+      postId: newPost._id,
     });
   } catch (error) {}
 };

@@ -1,14 +1,15 @@
-export interface singleEntryData {
+export interface post {
   _id: string;
   title: string;
   description: string;
   location: string;
   imageUrl: string;
+  author: string;
 }
 
 export interface contentData {
   number: number;
-  posts: singleEntryData[];
+  posts: post[];
 }
 
 export type UserImage = {
@@ -18,9 +19,11 @@ export type UserImage = {
 };
 
 export interface User extends UserImage {
+  _id: string;
   userName: string;
   email: string;
   password: string;
+  posts: [postId: string];
 }
 
 export type LoginCredentials = {

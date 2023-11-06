@@ -75,6 +75,8 @@ const register = async (req, res) => {
               userName: savedUser.userName,
               email: savedUser.email,
               userImage: savedUser.userImage,
+              userWebsite: savedUser.website,
+              userBio: savedUser.bio,
             },
           });
         } catch (error) {
@@ -149,11 +151,13 @@ const getProfle = async (req, res) => {
   if (req.user) {
     res.status(200).json({
       user: {
+        _id: req.user.id,
         userName: req.user.userName,
         email: req.user.email,
         userImage: req.user.userImage,
         userWebsite: req.user.userWebsite,
         userBio: req.user.userBio,
+        posts: req.user.posts,
       },
     });
   }
@@ -172,14 +176,26 @@ const updateUserData = async (req, res) => {
   const filter = { email: req.body.email };
   const update = { [`${elementName}`]: elementValue };
 
-  // const userEmail = req.body.email;
-  let updatedUser = await userModel.findOneAndUpdate(filter, update, {
-    new: true,
-  });
+  if (req.body.elementName === "posts") {
+    let updatedUser = await userModel.findOneAndUpdate(
+      filter,
+      { $push: { posts: req.body.elementValue } },
+      {
+        new: true,
+      }
+    );
+    res.status(200).json({
+      msg: "Posts populated properly",
+    });
+  } else {
+    let updatedUser = await userModel.findOneAndUpdate(filter, update, {
+      new: true,
+    });
 
-  res.status(200).json({
-    msg: "User updated successfully",
-  });
+    res.status(200).json({
+      msg: "User updated successfully",
+    });
+  }
 };
 
 const getAllUserPosts = async (req, res) => {

@@ -1,17 +1,12 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useLoaderData } from "react-router-dom";
 import "../styles/contentPage.css";
-
-type postDetails = {
-  title: string;
-  description: string;
-  location: string;
-  imageUrl: string;
-};
+import { post } from "../types/types";
 
 function ContentDetails() {
-  const data = useLoaderData() as postDetails;
+  const data = useLoaderData() as post;
 
+  console.log(data);
   return (
     <>
       <Container className="details-container">

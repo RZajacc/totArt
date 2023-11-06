@@ -18,16 +18,10 @@ function UserPosts() {
       body: urlencoded,
     };
 
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/users/allUserPosts",
-        requestOptions
-      );
-      const result = await response.json();
-      setPosts(result.posts);
-    } catch (error) {
-      console.log(error);
-    }
+    fetch("http://localhost:5000/api/users/allUserPosts", requestOptions)
+      .then((response) => response.json())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
   };
 
   useEffect(() => {
