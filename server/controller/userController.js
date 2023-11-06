@@ -182,4 +182,20 @@ const updateUserData = async (req, res) => {
   });
 };
 
-export { uploadImage, deleteImage, register, login, getProfle, updateUserData };
+const getAllUserPosts = async (req, res) => {
+  const userPosts = await userModel
+    .findOne({ email: req.body.email })
+    .populate("posts")
+    .exec();
+  console.log(userPosts);
+};
+
+export {
+  uploadImage,
+  deleteImage,
+  register,
+  login,
+  getProfle,
+  updateUserData,
+  getAllUserPosts,
+};

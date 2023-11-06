@@ -1,4 +1,5 @@
 import postModel from "../models/postModel.js";
+import userModel from "../models/userModel.js";
 
 const getAllPosts = async (req, res) => {
   const allPosts = await postModel.find();
@@ -36,11 +37,4 @@ const getDetails = async (req, res) => {
   });
 };
 
-const getAllUserPosts = async (req, res) => {
-  const posts = await postModel
-    .find({})
-    .populate({ path: "user", select: ["email"] });
-  console.log(posts);
-};
-
-export { getAllPosts, addNewPost, getDetails, getAllUserPosts };
+export { getAllPosts, addNewPost, getDetails };

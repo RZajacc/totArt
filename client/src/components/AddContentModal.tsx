@@ -106,9 +106,7 @@ const AddContentModal = () => {
             <Form onSubmit={handleFileSubmit}>
               <InputGroup>
                 <Form.Control type="file" onChange={handleFileInput} required />
-                <Button variant="warning" type="submit">
-                  Upload image
-                </Button>
+                <Button type="submit">Upload image</Button>
               </InputGroup>
               {imageUploadMessage ? (
                 <p className="text-center">{imageUploadMessage}</p>

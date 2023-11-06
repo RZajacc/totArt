@@ -1,6 +1,7 @@
 import express from "express";
 import {
   deleteImage,
+  getAllUserPosts,
   getProfle,
   login,
   register,
@@ -18,5 +19,6 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/updateUser", updateUserData);
 router.get("/profile", jwtAuth, getProfle);
+router.get("/allUserPosts", getAllUserPosts);
 
 export default router;
