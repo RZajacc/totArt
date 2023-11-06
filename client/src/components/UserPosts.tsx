@@ -1,9 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { post } from "../types/types";
+import { ListGroup } from "react-bootstrap";
+import "../styles/userDashboard.css";
+import { Link } from "react-router-dom";
 
 function UserPosts() {
   const { user } = useContext(AuthContext);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<post[]>();
 
   const getAllUsersPosts = async () => {
     const myHeaders = new Headers();
@@ -18,12 +22,19 @@ function UserPosts() {
       body: urlencoded,
     };
 
-    fetch("http://localhost:5000/api/users/allUserPosts", requestOptions)
-      .then((response) => response.json())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/allUserPosts",
+        requestOptions
+      );
+      const result = await response.json();
+      setPosts(result.posts);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  console.log("Posts", posts);
   useEffect(() => {
     getAllUsersPosts();
   }, []);
@@ -32,12 +43,19 @@ function UserPosts() {
   return (
     <>
       <h4>List of your posts created by you:</h4>
-      <ol>
+      <ListGroup as="ol" numbered>
         {posts &&
           posts.map((post) => {
-            return <li>{post.title}</li>;
+            return (
+              <ListGroup.Item>
+                <strong>Post title: </strong>
+                <Link className="link-to-own-post" to={`/content/${post._id}`}>
+                  {post.title}
+                </Link>
+              </ListGroup.Item>
+            );
           })}
-      </ol>
+      </ListGroup>
     </>
   );
 }

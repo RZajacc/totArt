@@ -73,3 +73,12 @@
 .input-group-text {
     width: 7rem;
 }
+
+.link-to-own-post {
+text-decoration: none;
+    cursor: pointer;
+}
+
+.link-to-own-post:hover {
+    font-weight: bold;
+}
