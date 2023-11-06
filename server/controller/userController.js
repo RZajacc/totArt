@@ -185,9 +185,15 @@ const updateUserData = async (req, res) => {
 const getAllUserPosts = async (req, res) => {
   const userPosts = await userModel
     .findOne({ email: req.body.email })
-    .populate("posts")
+    .populate({
+      path: "posts",
+      select: ["title", "description", "location", "imageUrl"],
+    })
     .exec();
-  console.log(userPosts);
+  res.status(200).json({
+    msg: "Posts field populated successfully",
+    posts: userPosts.posts,
+  });
 };
 
 export {

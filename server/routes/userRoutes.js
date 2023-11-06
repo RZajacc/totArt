@@ -19,6 +19,6 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/updateUser", updateUserData);
 router.get("/profile", jwtAuth, getProfle);
-router.get("/allUserPosts", getAllUserPosts);
+router.post("/allUserPosts", getAllUserPosts);
 
 export default router;
