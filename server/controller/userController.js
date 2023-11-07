@@ -176,6 +176,7 @@ const updateUserData = async (req, res) => {
   const filter = { email: req.body.email };
   const update = { [`${elementName}`]: elementValue };
 
+  // * This section covers connecting user with his posts
   if (req.body.elementName === "posts") {
     let updatedUser = await userModel.findOneAndUpdate(
       filter,
@@ -188,6 +189,7 @@ const updateUserData = async (req, res) => {
       msg: "Posts populated properly",
     });
   } else {
+    // * Or just continue with updateing other user fields
     let updatedUser = await userModel.findOneAndUpdate(filter, update, {
       new: true,
     });

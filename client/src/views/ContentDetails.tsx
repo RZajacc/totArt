@@ -15,6 +15,9 @@ function ContentDetails() {
             <h1>
               Title: <span className="image-title">{data.title}</span>
             </h1>
+            <p>
+              <em>Added by: {data.author}</em>
+            </p>
             <img src={data.imageUrl} className="details-image" />
             <div className="image-info">
               <h2>Description</h2>

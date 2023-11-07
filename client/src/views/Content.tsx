@@ -1,5 +1,5 @@
 import { Card, Col, Container, Row } from "react-bootstrap";
-import { Link, NavLink, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { contentData } from "../types/types";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";

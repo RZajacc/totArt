@@ -3,7 +3,9 @@ import userModel from "../models/userModel.js";
 
 const getAllPosts = async (req, res) => {
   const allPosts = await postModel.find();
-  // const allPosts = await postModel.find().populate({ path: "author" });
+  // const allPosts = await postModel
+  //   .find()
+  //   .populate({ path: "author", select: ["userName"] });
 
   res.json({
     number: allPosts.length,
@@ -31,12 +33,17 @@ const addNewPost = async (req, res) => {
 };
 
 const getDetails = async (req, res) => {
-  const postData = await postModel.findOne({ _id: req.body.id });
+  const postData = await postModel
+    .findOne({ _id: req.body.id })
+    .populate({ path: "author", select: ["userName"] });
+
+  console.log(postData);
   res.json({
     title: postData.title,
     description: postData.description,
     location: postData.location,
     imageUrl: postData.imageUrl,
+    author: postData.author.userName,
   });
 };
 
