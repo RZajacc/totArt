@@ -158,6 +158,7 @@ const getProfle = async (req, res) => {
         userWebsite: req.user.userWebsite,
         userBio: req.user.userBio,
         posts: req.user.posts,
+        favs: req.user.favs,
       },
     });
   }
@@ -214,6 +215,17 @@ const getAllUserPosts = async (req, res) => {
   });
 };
 
+const getAllFavs = async (req, res) => {
+  const userFavs = await userModel
+    .findOne({ email: req.body.email })
+    .populate({ path: "favs", select: ["_id", "title"] })
+    .exec();
+  res.status(200).json({
+    msg: "Populate worked",
+    favs: userFavs.favs,
+  });
+};
+
 export {
   uploadImage,
   deleteImage,
@@ -222,4 +234,5 @@ export {
   getProfle,
   updateUserData,
   getAllUserPosts,
+  getAllFavs,
 };

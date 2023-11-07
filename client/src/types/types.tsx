@@ -1,5 +1,5 @@
 export interface post {
-  _id: string;
+  id: string;
   title: string;
   description: string;
   location: string;
@@ -24,6 +24,7 @@ export interface User extends UserImage {
   email: string;
   password: string;
   posts: [postId: string];
+  favs: [{ postTitle: string; postId: string }];
 }
 
 export type LoginCredentials = {

@@ -34,15 +34,18 @@ function UserPosts() {
     }
   };
 
-  console.log("Posts", posts);
   useEffect(() => {
     getAllUsersPosts();
   }, []);
 
-  console.log(posts);
   return (
     <>
-      <h4>List of your posts created by you:</h4>
+      {posts ? (
+        <h4>You didn't create any posts yet!</h4>
+      ) : (
+        <h4>List of your posts created by you:</h4>
+      )}
+
       <ListGroup as="ol" numbered>
         {posts &&
           posts.map((post) => {

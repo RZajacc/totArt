@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema({
     required: false,
   },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "post" }],
+  favs: [{ type: mongoose.Schema.Types.ObjectId, ref: "post" }],
 });
 
 const userModel = mongoose.model("user", userSchema);
