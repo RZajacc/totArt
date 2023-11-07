@@ -189,6 +189,17 @@ const updateUserData = async (req, res) => {
     res.status(200).json({
       msg: "Posts populated properly",
     });
+  } else if (req.body.elementName === "favs") {
+    let updatedUser = await userModel.findOneAndUpdate(
+      filter,
+      { $push: { favs: req.body.elementValue } },
+      {
+        new: true,
+      }
+    );
+    res.status(200).json({
+      msg: "Posts populated properly",
+    });
   } else {
     // * Or just continue with updateing other user fields
     let updatedUser = await userModel.findOneAndUpdate(filter, update, {
