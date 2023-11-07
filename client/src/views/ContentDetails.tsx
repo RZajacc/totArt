@@ -4,24 +4,26 @@ import { useContext } from "react";
 import "../styles/contentPage.css";
 import { post } from "../types/types";
 import { AuthContext } from "../context/AuthContext";
+import { updateUserData } from "../utils/UserEditTools";
 
 function ContentDetails() {
   const data = useLoaderData() as post;
   const { user } = useContext(AuthContext);
 
   const handleAddFavs = () => {
-    const sampleArr = [
-      {
-        id: "6548fadfe915f7269bee4d66",
-        title: "Some title",
-      },
-    ];
-    console.log(sampleArr.includes(data.id));
-    // console.log("User favs--->", user!.favs);
-    // console.log("PostId--->", data.id);
+    if (user!.favs.includes(data.id)) {
+      console.log("Here Ill try to delete");
+      const testArr = [1, 2, 3, 4, 5];
+      console.log(testArr.indexOf(3));
+      testArr.splice(testArr.indexOf(3), 1);
+      console.log(testArr);
+    } else {
+      updateUserData(user!.email, "favs", data.id);
+    }
   };
 
-  console.log("data", user.favs);
+  console.log(user?.favs.indexOf("6548faefe915f7269bee4d72"));
+
   return (
     <>
       <Container className="details-container">
