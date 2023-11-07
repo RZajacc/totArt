@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  deleteFromUserArray,
   deleteImage,
   getAllFavs,
   getAllUserPosts,
@@ -22,5 +23,6 @@ router.post("/updateUser", updateUserData);
 router.get("/profile", jwtAuth, getProfle);
 router.post("/allUserPosts", getAllUserPosts);
 router.post("/allUserFavs", getAllFavs);
+router.post("/deleteFromUserArray", deleteFromUserArray);
 
 export default router;

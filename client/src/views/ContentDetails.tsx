@@ -1,28 +1,22 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useLoaderData } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../styles/contentPage.css";
 import { post } from "../types/types";
 import { AuthContext } from "../context/AuthContext";
-import { updateUserData } from "../utils/UserEditTools";
+import { deleteFromUserArray, updateUserData } from "../utils/UserEditTools";
 
 function ContentDetails() {
   const data = useLoaderData() as post;
   const { user } = useContext(AuthContext);
 
-  const handleAddFavs = () => {
+  const handleAddFavs = async () => {
     if (user!.favs.includes(data.id)) {
-      console.log("Here Ill try to delete");
-      const testArr = [1, 2, 3, 4, 5];
-      console.log(testArr.indexOf(3));
-      testArr.splice(testArr.indexOf(3), 1);
-      console.log(testArr);
+      deleteFromUserArray(user!.email, "favs", data.id);
     } else {
       updateUserData(user!.email, "favs", data.id);
     }
   };
-
-  console.log(user?.favs.indexOf("6548faefe915f7269bee4d72"));
 
   return (
     <>
@@ -35,24 +29,28 @@ function ContentDetails() {
                 {data.title}
                 {"  "}
               </span>
-              {user!.favs.includes(data.id) ? (
-                <Button variant="light" onClick={handleAddFavs}>
-                  <img
-                    src="https://res.cloudinary.com/dqdofxwft/image/upload/v1699354709/other/ra5sovm9gaxynfz3ah6t.svg"
-                    alt="empty-heart"
-                    width={"25px"}
-                  />{" "}
-                  Favs
-                </Button>
+              {user ? (
+                user?.favs.includes(data.id) ? (
+                  <Button variant="light" onClick={handleAddFavs}>
+                    <img
+                      src="https://res.cloudinary.com/dqdofxwft/image/upload/v1699354709/other/ra5sovm9gaxynfz3ah6t.svg"
+                      alt="empty-heart"
+                      width={"25px"}
+                    />{" "}
+                    Favs
+                  </Button>
+                ) : (
+                  <Button variant="light" onClick={handleAddFavs}>
+                    <img
+                      src="https://res.cloudinary.com/dqdofxwft/image/upload/v1699354710/other/l8kxiddecnqx6talp4bz.svg"
+                      alt="empty-heart"
+                      width={"25px"}
+                    />{" "}
+                    Favs
+                  </Button>
+                )
               ) : (
-                <Button variant="light" onClick={handleAddFavs}>
-                  <img
-                    src="https://res.cloudinary.com/dqdofxwft/image/upload/v1699354710/other/l8kxiddecnqx6talp4bz.svg"
-                    alt="empty-heart"
-                    width={"25px"}
-                  />{" "}
-                  Favs
-                </Button>
+                ""
               )}
             </h1>
             <p>

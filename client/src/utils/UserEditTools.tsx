@@ -1,4 +1,4 @@
-import { ImageUrlUpdateResponse } from "../types/types";
+import { ImageUrlUpdateResponse, User } from "../types/types";
 
 export const updateUserData = async (
   email: string,
@@ -26,6 +26,37 @@ export const updateUserData = async (
     );
     const data = (await response.json()) as ImageUrlUpdateResponse;
     console.log(data.msg);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteFromUserArray = async (
+  email: string,
+  elementName: string,
+  elementValue: string
+) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+  const urlencoded = new URLSearchParams();
+  urlencoded.append("email", email);
+  urlencoded.append("elementName", elementName);
+  urlencoded.append("elementValue", elementValue);
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: urlencoded,
+  };
+
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/users/deleteFromUserArray",
+      requestOptions
+    );
+    const result = await response.json();
+    console.log(result);
   } catch (error) {
     console.log(error);
   }

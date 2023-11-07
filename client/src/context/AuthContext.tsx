@@ -7,6 +7,7 @@ interface AuthContextType {
   user: User | null | undefined;
   setUser: (newUser: User) => void;
   logout: () => void;
+  getUser: (token: string) => void;
 }
 
 const AuthInitContext = {
@@ -15,6 +16,7 @@ const AuthInitContext = {
   user: null,
   setUser: () => console.log("Setting a new user"),
   logout: () => console.log("User is logged out"),
+  getUser: () => console.log("Get user"),
 };
 
 type AuthContexProviderProps = {
@@ -158,6 +160,7 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
         user,
         setUser,
         logout,
+        getUser,
       }}
     >
       {children}

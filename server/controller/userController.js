@@ -212,6 +212,24 @@ const updateUserData = async (req, res) => {
   }
 };
 
+const deleteFromUserArray = async (req, res) => {
+  const filter = { email: req.body.email };
+
+  if (req.body.elementName === "favs") {
+    let updatedUser = await userModel.findOneAndUpdate(
+      filter,
+      { $pull: { favs: req.body.elementValue } },
+      {
+        new: true,
+      }
+    );
+    res.status(200).json({
+      msg: "Value deleted properly from array",
+      user: updatedUser,
+    });
+  }
+};
+
 const getAllUserPosts = async (req, res) => {
   const userPosts = await userModel
     .findOne({ email: req.body.email })
@@ -246,4 +264,5 @@ export {
   updateUserData,
   getAllUserPosts,
   getAllFavs,
+  deleteFromUserArray,
 };
