@@ -1,4 +1,4 @@
-import { ImageUrlUpdateResponse, User } from "../types/types";
+import { ImageUrlUpdateResponse } from "../types/types";
 
 export const updateUserData = async (
   email: string,

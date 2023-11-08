@@ -1,6 +1,6 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useLoaderData } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import "../styles/contentPage.css";
 import { post } from "../types/types";
 import { AuthContext } from "../context/AuthContext";
@@ -31,25 +31,24 @@ function ContentDetails() {
                 {data.title}
                 {"  "}
               </span>
-              {/* {console.log("user>>>", user)} */}
               {user ? (
                 user?.favs.includes(data.id) ? (
                   <Button variant="light" onClick={handleAddFavs}>
+                    Delete from{" "}
                     <img
                       src="https://res.cloudinary.com/dqdofxwft/image/upload/v1699354709/other/ra5sovm9gaxynfz3ah6t.svg"
                       alt="empty-heart"
                       width={"25px"}
-                    />{" "}
-                    Favs
+                    />
                   </Button>
                 ) : (
                   <Button variant="light" onClick={handleAddFavs}>
+                    Add to{" "}
                     <img
                       src="https://res.cloudinary.com/dqdofxwft/image/upload/v1699354710/other/l8kxiddecnqx6talp4bz.svg"
                       alt="empty-heart"
                       width={"25px"}
-                    />{" "}
-                    Favs
+                    />
                   </Button>
                 )
               ) : (

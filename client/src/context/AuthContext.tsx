@@ -8,6 +8,8 @@ interface AuthContextType {
   setUser: (newUser: User) => void;
   logout: () => void;
   getUser: (token: string) => void;
+  isUserLoggedIn: () => void;
+  loader: boolean;
 }
 
 const AuthInitContext = {
@@ -17,6 +19,8 @@ const AuthInitContext = {
   setUser: () => console.log("Setting a new user"),
   logout: () => console.log("User is logged out"),
   getUser: () => console.log("Get user"),
+  isUserLoggedIn: () => console.log("Checking if logged in"),
+  loader: true,
 };
 
 type AuthContexProviderProps = {
