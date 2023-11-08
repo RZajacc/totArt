@@ -1,6 +1,7 @@
 import { ReactNode, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import AccessForbidden from "../views/AccessForbidden";
+import LoadingPage from "./LoadingPage";
 
 type Props = {
   children: ReactNode;
@@ -9,15 +10,7 @@ type Props = {
 function ProtectedRoute({ children }: Props) {
   const { user, loader } = useContext(AuthContext);
   return (
-    <>
-      {loader ? (
-        <h1>loading.........</h1>
-      ) : user ? (
-        children
-      ) : (
-        <AccessForbidden />
-      )}
-    </>
+    <>{loader ? <LoadingPage /> : user ? children : <AccessForbidden />}</>
   );
 }
 

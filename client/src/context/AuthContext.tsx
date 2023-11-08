@@ -88,6 +88,7 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
     }
   };
 
+  console.log(loader);
   // *3_LOGIN
   const login = async (loginCredentials: LoginCredentials) => {
     const myHeaders = new Headers();

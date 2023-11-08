@@ -29,3 +29,13 @@ body {
 .access-forbidden-messages > * {
     margin: 0.7rem;
 }
+
+/* *--------LOADING PAGE------------ */
+.loadingContainer {
+    margin-top: 6%;
+}
+
+.spinnerStyle {
+    width: 125px;
+    height: 125px;
+}
