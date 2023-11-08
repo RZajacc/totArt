@@ -1,4 +1,11 @@
-import { Container, Row, Col, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  FloatingLabel,
+  Form,
+} from "react-bootstrap";
 import { useLoaderData } from "react-router-dom";
 import { useContext } from "react";
 import "../styles/contentPage.css";
@@ -70,7 +77,21 @@ function ContentDetails() {
         </Row>
         <Row>
           <Col>
-            {data.comments ? <h2>Be the first person to comment:</h2> : "sad"}
+            {data.comments ? (
+              <h4 className="text-center">Be the first person to comment:</h4>
+            ) : (
+              "sad"
+            )}
+            <FloatingLabel
+              controlId="floatingTextarea2"
+              label="Leave a comment"
+            >
+              <Form.Control
+                as="textarea"
+                placeholder="Leave a comment here"
+                style={{ height: "125px" }}
+              />
+            </FloatingLabel>
           </Col>
         </Row>
       </Container>
