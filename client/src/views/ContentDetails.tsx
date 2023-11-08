@@ -12,6 +12,7 @@ import "../styles/contentPage.css";
 import { post } from "../types/types";
 import { AuthContext } from "../context/AuthContext";
 import { deleteFromUserArray, updateUserData } from "../utils/UserEditTools";
+import { addNewComment } from "../utils/CommentsTools";
 
 function ContentDetails() {
   const data = useLoaderData() as post;
@@ -32,7 +33,9 @@ function ContentDetails() {
     setCommentVal(e.target.value);
   };
 
-  const handleAddingComment = () => {};
+  const handleAddingComment = () => {
+    addNewComment(user!._id, commentVal, data._id);
+  };
   console.log(data);
   return (
     <>
