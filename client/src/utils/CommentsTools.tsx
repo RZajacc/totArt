@@ -23,7 +23,7 @@ export const addNewComment = async (
       requestOptions
     );
     const result = await response.json();
-    console.log(result);
+    return result.comment;
   } catch (error) {
     console.log(error);
   }

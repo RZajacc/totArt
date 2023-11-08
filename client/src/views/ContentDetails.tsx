@@ -33,8 +33,10 @@ function ContentDetails() {
     setCommentVal(e.target.value);
   };
 
-  const handleAddingComment = () => {
-    addNewComment(user!._id, commentVal, data._id);
+  const handleAddingComment = async () => {
+    const comment = await addNewComment(user!._id, commentVal, data._id);
+    await updateUserData(user!.email, "userComment", comment._id);
+    isUserLoggedIn();
   };
   console.log(data);
   return (
