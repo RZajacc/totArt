@@ -56,7 +56,6 @@ const AddContentModal = () => {
     }
   };
 
-  console.log(user);
   // *-----------HANDLE INCOMING DATA---------------------------
   const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedFile(e.target.files ? e.target.files[0] : "");

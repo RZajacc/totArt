@@ -45,6 +45,8 @@ const getDetails = async (req, res) => {
     location: postData.location,
     imageUrl: postData.imageUrl,
     author: postData.author.userName,
+    favs: postData.favs,
+    comments: postData.comments,
   });
 };
 

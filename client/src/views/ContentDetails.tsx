@@ -68,6 +68,11 @@ function ContentDetails() {
             </div>
           </Col>
         </Row>
+        <Row>
+          <Col>
+            {data.comments ? <h2>Be the first person to comment:</h2> : "sad"}
+          </Col>
+        </Row>
       </Container>
     </>
   );
