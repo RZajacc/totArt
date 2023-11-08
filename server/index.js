@@ -5,6 +5,7 @@ import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import postRoute from "./routes/postsRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
 import cloudinaryConfig from "./config/cloudinaryConfig.js";
 import passport from "passport";
 import passportConfig from "./config/passport.js";
@@ -42,6 +43,7 @@ const addMiddlewares = () => {
 const addRoutes = () => {
   app.use("/api/posts", postRoute);
   app.use("/api/users", userRoutes);
+  app.use("/api/comments", commentRoutes);
 };
 
 // * 4_START SERVER

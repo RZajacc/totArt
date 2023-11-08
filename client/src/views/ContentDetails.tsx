@@ -7,7 +7,7 @@ import {
   Form,
 } from "react-bootstrap";
 import { useLoaderData } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState, ChangeEvent } from "react";
 import "../styles/contentPage.css";
 import { post } from "../types/types";
 import { AuthContext } from "../context/AuthContext";
@@ -16,8 +16,8 @@ import { deleteFromUserArray, updateUserData } from "../utils/UserEditTools";
 function ContentDetails() {
   const data = useLoaderData() as post;
   const { user, isUserLoggedIn } = useContext(AuthContext);
+  const [commentVal, setCommentVal] = useState("");
 
-  console.log(data);
   const handleAddFavs = async () => {
     if (user!.favs.includes(data._id)) {
       await deleteFromUserArray(user!.email, "favs", data._id);
@@ -27,6 +27,12 @@ function ContentDetails() {
       isUserLoggedIn();
     }
   };
+
+  const handleCommentValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setCommentVal(e.target.value);
+  };
+
+  const handleAddingComment = () => {};
 
   return (
     <>
@@ -63,9 +69,7 @@ function ContentDetails() {
                 ""
               )}
             </h1>
-            <p>
-              <em>Added by: {data.author}</em>
-            </p>
+            <p>{/* <em>Added by: {data.author}</em> */}</p>
             <img src={data.imageUrl} className="details-image" />
             <div className="image-info">
               <h2>Description</h2>
@@ -90,8 +94,10 @@ function ContentDetails() {
                 as="textarea"
                 placeholder="Leave a comment here"
                 style={{ height: "125px" }}
+                onChange={handleCommentValue}
               />
             </FloatingLabel>
+            <Button onClick={handleAddingComment}>Submit new Comment</Button>
           </Col>
         </Row>
       </Container>

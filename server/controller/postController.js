@@ -1,3 +1,4 @@
+import commentModel from "../models/commentModel.js";
 import postModel from "../models/postModel.js";
 import userModel from "../models/userModel.js";
 
@@ -35,7 +36,8 @@ const addNewPost = async (req, res) => {
 const getDetails = async (req, res) => {
   const postData = await postModel
     .findOne({ _id: req.body.id })
-    .populate({ path: "author", select: ["userName"] });
+    .populate({ path: "author", select: ["userName", "userImage"] })
+    .populate({ path: "comments" });
 
   console.log(postData);
   res.json({
@@ -44,7 +46,7 @@ const getDetails = async (req, res) => {
     description: postData.description,
     location: postData.location,
     imageUrl: postData.imageUrl,
-    author: postData.author.userName,
+    author: postData.author,
     favs: postData.favs,
     comments: postData.comments,
   });
