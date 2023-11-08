@@ -198,7 +198,7 @@ const updateUserData = async (req, res) => {
       }
     );
     res.status(200).json({
-      msg: "Posts populated properly",
+      msg: "Favs populated properly",
     });
   } else {
     // * Or just continue with updateing other user fields
@@ -225,7 +225,6 @@ const deleteFromUserArray = async (req, res) => {
     );
     res.status(200).json({
       msg: "Value deleted properly from array",
-      user: updatedUser,
     });
   }
 };

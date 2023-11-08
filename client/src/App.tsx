@@ -29,7 +29,11 @@ function App() {
         },
         {
           path: "content/:id",
-          element: <ContentDetails />,
+          element: (
+            <ProtectedRoute>
+              <ContentDetails />,
+            </ProtectedRoute>
+          ),
           loader: detailsLoader,
         },
         {

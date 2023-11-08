@@ -7,9 +7,18 @@ type Props = {
 };
 
 function ProtectedRoute({ children }: Props) {
-  const { user } = useContext(AuthContext);
-
-  return <>{user ? children : <AccessForbidden />}</>;
+  const { user, loader } = useContext(AuthContext);
+  return (
+    <>
+      {loader ? (
+        <h1>loading.........</h1>
+      ) : user ? (
+        children
+      ) : (
+        <AccessForbidden />
+      )}
+    </>
+  );
 }
 
 export default ProtectedRoute;

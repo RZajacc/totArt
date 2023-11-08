@@ -8,13 +8,15 @@ import { deleteFromUserArray, updateUserData } from "../utils/UserEditTools";
 
 function ContentDetails() {
   const data = useLoaderData() as post;
-  const { user } = useContext(AuthContext);
+  const { user, isUserLoggedIn } = useContext(AuthContext);
 
   const handleAddFavs = async () => {
     if (user!.favs.includes(data.id)) {
-      deleteFromUserArray(user!.email, "favs", data.id);
+      await deleteFromUserArray(user!.email, "favs", data.id);
+      isUserLoggedIn();
     } else {
-      updateUserData(user!.email, "favs", data.id);
+      await updateUserData(user!.email, "favs", data.id);
+      isUserLoggedIn();
     }
   };
 
@@ -29,6 +31,7 @@ function ContentDetails() {
                 {data.title}
                 {"  "}
               </span>
+              {/* {console.log("user>>>", user)} */}
               {user ? (
                 user?.favs.includes(data.id) ? (
                   <Button variant="light" onClick={handleAddFavs}>

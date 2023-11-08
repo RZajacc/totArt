@@ -26,8 +26,9 @@ type AuthContexProviderProps = {
 export const AuthContext = createContext<AuthContextType>(AuthInitContext);
 
 export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
-  const [user, setUser] = useState<User | null>();
+  const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   // *1_REGISTER A NEW USER
   const registerWithEmail = async (newUser: User) => {
@@ -78,7 +79,6 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
         if (response.ok) {
           const result = await response.json();
           const user = result.user as User;
-          console.log(user);
           return user;
         }
       } catch (err) {
@@ -132,13 +132,16 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
     const token = localStorage.getItem("token");
     if (token) {
       const user: User | undefined = await getUser(token);
+      console.log("User in Context:", user);
       if (user) {
         setUser(user);
+        setLoader(false);
+        setIsLoggedIn(true);
       }
-      setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
       setUser(null);
+      setLoader(false);
     }
   };
 
@@ -161,6 +164,8 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
         setUser,
         logout,
         getUser,
+        isUserLoggedIn,
+        loader,
       }}
     >
       {children}

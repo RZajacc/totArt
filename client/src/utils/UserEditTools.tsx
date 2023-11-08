@@ -5,6 +5,12 @@ export const updateUserData = async (
   elementName: string,
   elementValue: string
 ) => {
+  console.log(
+    "email, elementName, elementValue>>>",
+    email,
+    elementName,
+    elementValue
+  );
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -36,6 +42,12 @@ export const deleteFromUserArray = async (
   elementName: string,
   elementValue: string
 ) => {
+  console.log(
+    "email, elementName, elementValue>>>",
+    email,
+    elementName,
+    elementValue
+  );
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -56,7 +68,7 @@ export const deleteFromUserArray = async (
       requestOptions
     );
     const result = await response.json();
-    console.log(result);
+    console.log(result.msg);
   } catch (error) {
     console.log(error);
   }

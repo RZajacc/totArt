@@ -38,12 +38,13 @@ function UserPosts() {
     getAllUsersPosts();
   }, []);
 
+  console.log(posts);
   return (
     <>
       {posts ? (
-        <h4>You didn't create any posts yet!</h4>
-      ) : (
         <h4>List of your posts created by you:</h4>
+      ) : (
+        <h4>You didn't create any posts yet!</h4>
       )}
 
       <ListGroup as="ol" numbered>
