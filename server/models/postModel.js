@@ -19,6 +19,7 @@ const postSchema = new mongoose.Schema({
   },
   author: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
   favs: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "comment" }],
 });
 
 const postModel = mongoose.model("post", postSchema);

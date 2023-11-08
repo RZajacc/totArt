@@ -39,7 +39,7 @@ const getDetails = async (req, res) => {
 
   console.log(postData);
   res.json({
-    id: postData._id,
+    _id: postData._id,
     title: postData.title,
     description: postData.description,
     location: postData.location,

@@ -10,12 +10,13 @@ function ContentDetails() {
   const data = useLoaderData() as post;
   const { user, isUserLoggedIn } = useContext(AuthContext);
 
+  console.log(data);
   const handleAddFavs = async () => {
-    if (user!.favs.includes(data.id)) {
-      await deleteFromUserArray(user!.email, "favs", data.id);
+    if (user!.favs.includes(data._id)) {
+      await deleteFromUserArray(user!.email, "favs", data._id);
       isUserLoggedIn();
     } else {
-      await updateUserData(user!.email, "favs", data.id);
+      await updateUserData(user!.email, "favs", data._id);
       isUserLoggedIn();
     }
   };
@@ -32,7 +33,7 @@ function ContentDetails() {
                 {"  "}
               </span>
               {user ? (
-                user?.favs.includes(data.id) ? (
+                user?.favs.includes(data._id) ? (
                   <Button variant="light" onClick={handleAddFavs}>
                     Delete from{" "}
                     <img
