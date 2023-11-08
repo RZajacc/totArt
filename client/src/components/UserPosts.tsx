@@ -53,7 +53,7 @@ function UserPosts() {
             return (
               <ListGroup.Item>
                 <strong>Post title: </strong>
-                <Link className="link-to-own-post" to={`/content/${post.id}`}>
+                <Link className="link-to-own-post" to={`/content/${post._id}`}>
                   {post.title}
                 </Link>
               </ListGroup.Item>
