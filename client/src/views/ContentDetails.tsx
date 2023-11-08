@@ -33,7 +33,7 @@ function ContentDetails() {
   };
 
   const handleAddingComment = () => {};
-
+  console.log(data);
   return (
     <>
       <Container className="details-container">
@@ -82,9 +82,11 @@ function ContentDetails() {
         <Row>
           <Col>
             {data.comments ? (
-              <h4 className="text-center">Be the first person to comment:</h4>
+              data.comments.map((comment) => {
+                return <p>{comment.comment}</p>;
+              })
             ) : (
-              "sad"
+              <h4 className="text-center">Be the first person to comment:</h4>
             )}
             <FloatingLabel
               controlId="floatingTextarea2"
