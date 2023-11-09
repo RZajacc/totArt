@@ -34,7 +34,6 @@ function App() {
               <ContentDetails />,
             </ProtectedRoute>
           ),
-          // loader: detailsLoader,
         },
         {
           path: "contact",

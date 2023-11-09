@@ -128,7 +128,17 @@ function ContentDetails() {
                 ""
               )}
             </h1>
-            <p>{/* <em>Added by: {data.author}</em> */}</p>
+            <p>
+              <em>
+                Added by:{" "}
+                <img
+                  src={data.author.userImage}
+                  alt="user-mini"
+                  className="author-miniature"
+                />{" "}
+                {data.author.userName}
+              </em>
+            </p>
             <img src={data.imageUrl} className="details-image" />
             <div className="image-info">
               <h2>Description</h2>
@@ -138,24 +148,33 @@ function ContentDetails() {
             </div>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            {data.comments ? (
-              data.comments.map((comment) => {
-                return <Comment comment={comment} />;
-              })
-            ) : (
-              <h4 className="text-center">Be the first person to comment:</h4>
-            )}
-            <FloatingLabel controlId="comment-textarea" label="Leave a comment">
-              <Form.Control
-                as="textarea"
-                placeholder="Leave a comment here"
-                style={{ height: "125px" }}
-                onChange={handleCommentValue}
-              />
-            </FloatingLabel>
-            <Button onClick={handleAddingComment}>Submit new Comment</Button>
+        <Row className="justify-content-center">
+          <Col xs={8}>
+            <div className="comments-div">
+              <h4>Comments:</h4>
+              {data.comments &&
+                data.comments.map((comment) => {
+                  return <Comment comment={comment} />;
+                })}
+              <FloatingLabel
+                controlId="comment-textarea"
+                label="Leave a comment"
+              >
+                <Form.Control
+                  as="textarea"
+                  placeholder="Leave a comment here"
+                  style={{ height: "125px" }}
+                  onChange={handleCommentValue}
+                />
+              </FloatingLabel>
+              <Button
+                onClick={handleAddingComment}
+                className="submit-message-button"
+                variant="info"
+              >
+                Submit new Comment
+              </Button>
+            </div>
           </Col>
         </Row>
       </Container>

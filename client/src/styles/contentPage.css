@@ -72,3 +72,21 @@
     font-style: italic;
     color: green;
 }
+
+.author-miniature {
+    width: 6%;
+    border-radius: 50%;
+}
+
+.comments-div {
+    margin-top: 5%;
+}
+
+#comment-textarea {
+    margin: 10px 0px 10px 0px;
+}
+
+.submit-message-button {
+    width: 13rem;
+    margin-left: 37%;
+}
