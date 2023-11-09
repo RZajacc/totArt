@@ -28,3 +28,27 @@ export const addNewComment = async (
     console.log(error);
   }
 };
+
+export const deleteComment = async (id: string) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+  const urlencoded = new URLSearchParams();
+  urlencoded.append("_id", id);
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: urlencoded,
+  };
+
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/comments/deleteComment",
+      requestOptions
+    );
+    const result = response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};

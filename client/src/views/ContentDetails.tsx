@@ -12,7 +12,7 @@ import "../styles/contentPage.css";
 import { post } from "../types/types";
 import { AuthContext } from "../context/AuthContext";
 import { deleteFromUserArray, updateUserData } from "../utils/UserEditTools";
-import { addNewComment } from "../utils/CommentsTools";
+import { addNewComment, deleteComment } from "../utils/CommentsTools";
 import { updatePost } from "../utils/PostsTools";
 import Comment from "../components/Comment";
 import "../styles/Comment.css";
@@ -24,6 +24,7 @@ function ContentDetails() {
     author: { _id: "", userImage: "", userName: "" },
     comments: [
       {
+        _id: "",
         author: { _id: "", userImage: "", userName: "" },
         comment: "",
         relatedPost: "",
@@ -93,6 +94,15 @@ function ContentDetails() {
     isUserLoggedIn();
   };
 
+  // *DELETE A COMMENT
+  const handleDeleteComment = async (id: string) => {
+    console.log("Im running!");
+    await deleteComment(id);
+    await getPostDetails();
+    isUserLoggedIn();
+    console.log("CUrrent data:", data);
+  };
+
   return (
     <>
       <Container className="details-container">
@@ -154,15 +164,20 @@ function ContentDetails() {
               <h4>Comments:</h4>
               {data.comments &&
                 data.comments.map((comment) => {
-                  return <Comment comment={comment} />;
+                  return (
+                    <Comment
+                      comment={comment}
+                      handleDeleteComment={handleDeleteComment}
+                    />
+                  );
                 })}
               <FloatingLabel
                 controlId="comment-textarea"
-                label="Leave a comment"
+                label="Leave a comment below:"
               >
                 <Form.Control
                   as="textarea"
-                  placeholder="Leave a comment here"
+                  placeholder="Leave a comment"
                   style={{ height: "125px" }}
                   onChange={handleCommentValue}
                 />

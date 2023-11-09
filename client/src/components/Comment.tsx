@@ -6,10 +6,16 @@ import "../styles/Comment.css";
 
 type Props = {
   comment: comment;
+  handleDeleteComment: (id: string) => void;
 };
 
-function Comment({ comment }: Props) {
+function Comment({ comment, handleDeleteComment }: Props) {
   const { user } = useContext(AuthContext);
+
+  const handleDelete = async () => {
+    handleDeleteComment(comment._id);
+  };
+
   return (
     <>
       <Row className="rowStyle">
@@ -21,7 +27,6 @@ function Comment({ comment }: Props) {
             <strong>{comment.author.userName}</strong>
           </p>
           <p>{comment.comment}</p>
-          {/* <p className="dateStyle">{formatDate(comment.date)}</p> */}
         </Col>
         <Col xs lg="2">
           {comment.author._id === user?._id ? (
@@ -29,7 +34,7 @@ function Comment({ comment }: Props) {
               variant="danger"
               className="delete-button"
               value={comment.comment}
-              //   onClick={handleDelete}
+              onClick={handleDelete}
             >
               Delete
             </Button>

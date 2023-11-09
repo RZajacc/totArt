@@ -5,6 +5,7 @@ export type authorType = {
 };
 
 export type comment = {
+  _id: string;
   comment: string;
   author: authorType;
   relatedPost: string;
