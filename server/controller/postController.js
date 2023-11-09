@@ -52,4 +52,25 @@ const getDetails = async (req, res) => {
   });
 };
 
-export { getAllPosts, addNewPost, getDetails };
+const updatePost = async (req, res) => {
+  const filter = { _id: req.body._id };
+  const elementName = req.body.elementName;
+  const elementValue = req.body.elementValue;
+  const update = { [`${elementName}`]: elementValue };
+
+  // * This section covers connecting user with his posts
+  if (req.body.elementName === "comments") {
+    let updatedPost = await postModel.findOneAndUpdate(
+      filter,
+      { $push: { comments: elementValue } },
+      {
+        new: true,
+      }
+    );
+    res.status(200).json({
+      msg: "Posts updated properly",
+    });
+  }
+};
+
+export { getAllPosts, addNewPost, getDetails, updatePost };

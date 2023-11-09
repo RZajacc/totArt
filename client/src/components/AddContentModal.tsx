@@ -18,6 +18,7 @@ const AddContentModal = () => {
     location: "",
     imageUrl: "",
     author: "",
+    comments: [{ author: "", comment: "", relatedPost: "" }],
   });
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

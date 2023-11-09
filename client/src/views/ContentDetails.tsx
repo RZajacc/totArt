@@ -6,19 +6,62 @@ import {
   FloatingLabel,
   Form,
 } from "react-bootstrap";
-import { useLoaderData } from "react-router-dom";
-import { useContext, useState, ChangeEvent } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
+import { useContext, useState, ChangeEvent, useEffect } from "react";
 import "../styles/contentPage.css";
 import { post } from "../types/types";
 import { AuthContext } from "../context/AuthContext";
 import { deleteFromUserArray, updateUserData } from "../utils/UserEditTools";
 import { addNewComment } from "../utils/CommentsTools";
+import { updatePost } from "../utils/PostsTools";
 
 function ContentDetails() {
-  const data = useLoaderData() as post;
+  const { id } = useParams();
+  const [data, setData] = useState<post>({
+    _id: "",
+    author: "",
+    comments: [{ author: "", comment: "", relatedPost: "" }],
+    description: "",
+    imageUrl: "",
+    location: "",
+    title: "",
+  });
+
   const { user, isUserLoggedIn } = useContext(AuthContext);
   const [commentVal, setCommentVal] = useState("");
 
+  // * FETCH POST
+  const getPostDetails = async () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("id", id!);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: urlencoded,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/posts/details",
+        requestOptions
+      );
+      const result = await response.json();
+      console.log("Log in get post functions", result);
+      setData(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPostDetails();
+  }, []);
+
+  // * ADD OR REMOVE POST FROM FAVOURITES
   const handleAddFavs = async () => {
     if (user!.favs.includes(data._id)) {
       await deleteFromUserArray(user!.email, "favs", data._id);
@@ -29,16 +72,20 @@ function ContentDetails() {
     }
   };
 
+  // * GET VALUE OF A COMMENT
   const handleCommentValue = (e: ChangeEvent<HTMLInputElement>) => {
     setCommentVal(e.target.value);
   };
 
+  // * ADD COMMENT AND RE FETCH DATA
   const handleAddingComment = async () => {
     const comment = await addNewComment(user!._id, commentVal, data._id);
     await updateUserData(user!.email, "userComment", comment._id);
+    await updatePost(data._id, "comments", comment._id);
+    await getPostDetails();
     isUserLoggedIn();
   };
-  console.log(data);
+
   return (
     <>
       <Container className="details-container">
