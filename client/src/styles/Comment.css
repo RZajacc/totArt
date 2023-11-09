@@ -1,0 +1,34 @@
+.commentsContainer {
+    margin-top: 5%;
+}
+
+.picStyle {
+    border-radius: 50%;
+    width: 70px;
+    margin-left: 12%;
+
+}
+
+.rowStyle {
+    margin: 3px;
+    border-radius: 5%;
+    background-color: #FAFAFA;
+    align-items: center;
+}
+
+.dateStyle {
+    font-size: 0.7rem;
+    font-style: italic;
+}
+
+.delete-button {
+    margin-left: 40%;
+}
+
+#comment-textarea {
+    margin: 10px 0px 10px 0px;
+}
+
+.submit-message-button {
+    width: 200px;
+}

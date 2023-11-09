@@ -6,7 +6,7 @@ import {
   FloatingLabel,
   Form,
 } from "react-bootstrap";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useContext, useState, ChangeEvent, useEffect } from "react";
 import "../styles/contentPage.css";
 import { post } from "../types/types";
@@ -14,13 +14,21 @@ import { AuthContext } from "../context/AuthContext";
 import { deleteFromUserArray, updateUserData } from "../utils/UserEditTools";
 import { addNewComment } from "../utils/CommentsTools";
 import { updatePost } from "../utils/PostsTools";
+import Comment from "../components/Comment";
+import "../styles/Comment.css";
 
 function ContentDetails() {
   const { id } = useParams();
   const [data, setData] = useState<post>({
     _id: "",
-    author: "",
-    comments: [{ author: "", comment: "", relatedPost: "" }],
+    author: { _id: "", userImage: "", userName: "" },
+    comments: [
+      {
+        author: { _id: "", userImage: "", userName: "" },
+        comment: "",
+        relatedPost: "",
+      },
+    ],
     description: "",
     imageUrl: "",
     location: "",
@@ -50,7 +58,6 @@ function ContentDetails() {
         requestOptions
       );
       const result = await response.json();
-      console.log("Log in get post functions", result);
       setData(result);
     } catch (error) {
       console.log(error);
@@ -135,15 +142,12 @@ function ContentDetails() {
           <Col>
             {data.comments ? (
               data.comments.map((comment) => {
-                return <p>{comment.comment}</p>;
+                return <Comment comment={comment} />;
               })
             ) : (
               <h4 className="text-center">Be the first person to comment:</h4>
             )}
-            <FloatingLabel
-              controlId="floatingTextarea2"
-              label="Leave a comment"
-            >
+            <FloatingLabel controlId="comment-textarea" label="Leave a comment">
               <Form.Control
                 as="textarea"
                 placeholder="Leave a comment here"

@@ -37,7 +37,10 @@ const getDetails = async (req, res) => {
   const postData = await postModel
     .findOne({ _id: req.body.id })
     .populate({ path: "author", select: ["userName", "userImage"] })
-    .populate({ path: "comments" });
+    .populate({
+      path: "comments",
+      populate: { path: "author", select: ["userName", "userImage"] },
+    });
 
   console.log(postData);
   res.json({

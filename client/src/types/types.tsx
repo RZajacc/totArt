@@ -1,6 +1,12 @@
+export type authorType = {
+  _id: string;
+  userName: string;
+  userImage: string;
+};
+
 export type comment = {
   comment: string;
-  author: string;
+  author: authorType;
   relatedPost: string;
 };
 
@@ -10,7 +16,7 @@ export interface post {
   description: string;
   location: string;
   imageUrl: string;
-  author: string;
+  author: authorType;
   comments: [comment];
 }
 

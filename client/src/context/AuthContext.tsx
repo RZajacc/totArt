@@ -92,7 +92,6 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
     }
   };
 
-  console.log(loader);
   // *3_LOGIN
   const login = async (loginCredentials: LoginCredentials) => {
     const myHeaders = new Headers();
@@ -137,7 +136,6 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
     const token = localStorage.getItem("token");
     if (token) {
       const user: User | undefined = await getUser(token);
-      console.log("User in Context:", user);
       if (user) {
         setUser(user);
         setLoader(false);
