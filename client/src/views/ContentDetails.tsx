@@ -100,7 +100,6 @@ function ContentDetails() {
     await deleteComment(id);
     await getPostDetails();
     isUserLoggedIn();
-    console.log("CUrrent data:", data);
   };
 
   return (
@@ -161,7 +160,7 @@ function ContentDetails() {
         <Row className="justify-content-center">
           <Col xs={8}>
             <div className="comments-div">
-              <h4>Comments:</h4>
+              <h4>({data.comments.length}) Comments:</h4>
               {data.comments &&
                 data.comments.map((comment) => {
                   return (

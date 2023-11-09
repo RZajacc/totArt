@@ -17,8 +17,15 @@ const AddContentModal = () => {
     description: "",
     location: "",
     imageUrl: "",
-    author: "",
-    comments: [{ author: "", comment: "", relatedPost: "" }],
+    author: { _id: "", userImage: "", userName: "" },
+    comments: [
+      {
+        _id: "",
+        author: { _id: "", userImage: "", userName: "" },
+        comment: "",
+        relatedPost: "",
+      },
+    ],
   });
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

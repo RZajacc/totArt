@@ -108,3 +108,27 @@ export const deleteUserImage = async (imageId: string) => {
     console.log(error);
   }
 };
+
+export const deleteUser = async (id: string) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+  const urlencoded = new URLSearchParams();
+  urlencoded.append("_id", id);
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: urlencoded,
+  };
+
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/users/deleteUser",
+      requestOptions
+    );
+    const result = await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};

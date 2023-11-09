@@ -3,6 +3,8 @@ import userModel from "../models/userModel.js";
 import { bcrypt_hash, bcrypt_verifyPassword } from "../utils/bcrypt_config.js";
 import { response } from "express";
 import { generateToken } from "../utils/tokenServices.js";
+import postModel from "../models/postModel.js";
+import commentModel from "../models/commentModel.js";
 
 const uploadImage = async (req, res) => {
   //   * Upload file to cloudinary
@@ -265,6 +267,22 @@ const getAllFavs = async (req, res) => {
   });
 };
 
+const deleteUser = async (req, res) => {
+  const userToDelete = await userModel.findById(req.body._id);
+  // console.log(userToDelete);
+  userToDelete.posts.forEach(async (post) => {
+    let postToDelete = await postModel.findByIdAndDelete(post);
+  });
+
+  userToDelete.comments.forEach(async (comment) => {
+    let commentToDelete = await commentModel.findByIdAndDelete(comment);
+  });
+
+  let deleteUser = await userModel.findByIdAndDelete(req.body._id);
+
+  res.json({ msg: "user deleted successfully" });
+};
+
 export {
   uploadImage,
   deleteImage,
@@ -275,4 +293,5 @@ export {
   getAllUserPosts,
   getAllFavs,
   deleteFromUserArray,
+  deleteUser,
 };

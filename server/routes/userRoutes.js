@@ -2,6 +2,7 @@ import express from "express";
 import {
   deleteFromUserArray,
   deleteImage,
+  deleteUser,
   getAllFavs,
   getAllUserPosts,
   getProfle,
@@ -24,5 +25,6 @@ router.get("/profile", jwtAuth, getProfle);
 router.post("/allUserPosts", getAllUserPosts);
 router.post("/allUserFavs", getAllFavs);
 router.post("/deleteFromUserArray", deleteFromUserArray);
+router.post("/deleteUser", deleteUser);
 
 export default router;

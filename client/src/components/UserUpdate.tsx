@@ -8,6 +8,7 @@ import {
   updateUserData,
 } from "../utils/UserEditTools";
 import { UserImage, editFieldStatus } from "../types/types";
+import DeleteUserModal from "./DeleteUserModal";
 
 function UserUpdate() {
   const { user, setUser } = useContext(AuthContext);
@@ -310,6 +311,7 @@ function UserUpdate() {
             ""
           )}
         </Form>
+        <DeleteUserModal />
       </Container>
     </>
   );
