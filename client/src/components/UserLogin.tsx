@@ -63,6 +63,7 @@ function Login({ setLogReg }: Props) {
               name="email"
               placeholder="Enter email"
               onChange={handleLoginInput}
+              required
             />
           </Form.Group>
 
@@ -74,6 +75,7 @@ function Login({ setLogReg }: Props) {
               placeholder="Password"
               onChange={handleLoginInput}
               autoComplete="user-password"
+              required
             />
           </Form.Group>
 

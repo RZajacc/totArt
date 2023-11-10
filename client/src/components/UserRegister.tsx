@@ -102,6 +102,7 @@ function Register({ setLogReg }: Props) {
               name="userName"
               placeholder="Enter username"
               onChange={handleInputData}
+              isValid={newUser.userName != ""}
               required
             />
           </Form.Group>

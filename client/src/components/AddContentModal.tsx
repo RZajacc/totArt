@@ -30,10 +30,42 @@ const AddContentModal = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // *-----------HANDLE INCOMING DATA---------------------------
+  const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectedFile(e.target.files ? e.target.files[0] : "");
+  };
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewContent({ ...newContent, [`${e.target.name}`]: e.target.value });
   };
 
+  // *--------HANDLE FILE UPLOAD-----------------------
+  const handleFileSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formdata = new FormData();
+    formdata.append("userImage", selectedFile);
+    formdata.append("folder", "postImages");
+
+    const requestOptions = {
+      method: "POST",
+      body: formdata,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/imageUpload",
+        requestOptions
+      );
+      const result = (await response.json()) as UserImage;
+      setNewContent({ ...newContent, imageUrl: result.userImage });
+      setImageUploadMessage("Image uploaded successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // * SUBMIT A NEW POST
   const submitNewPost = async () => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -59,36 +91,6 @@ const AddContentModal = () => {
       const result = await response.json();
       updateUserData(user!.email, "posts", result.postId);
       // console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // *-----------HANDLE INCOMING DATA---------------------------
-  const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectedFile(e.target.files ? e.target.files[0] : "");
-  };
-
-  const handleFileSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formdata = new FormData();
-    formdata.append("userImage", selectedFile);
-    formdata.append("folder", "postImages");
-
-    const requestOptions = {
-      method: "POST",
-      body: formdata,
-    };
-
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/users/imageUpload",
-        requestOptions
-      );
-      const result = (await response.json()) as UserImage;
-      setNewContent({ ...newContent, imageUrl: result.userImage });
-      setImageUploadMessage("Image uploaded successfully");
     } catch (error) {
       console.log(error);
     }
@@ -133,6 +135,7 @@ const AddContentModal = () => {
                   name="title"
                   onChange={handleInputChange}
                   autoFocus
+                  required
                 />
               </Form.Group>
               <Form.Group
@@ -145,6 +148,7 @@ const AddContentModal = () => {
                   rows={3}
                   name="description"
                   onChange={handleInputChange}
+                  required
                 />
               </Form.Group>
               <Form.Group
@@ -157,6 +161,7 @@ const AddContentModal = () => {
                   rows={3}
                   name="location"
                   onChange={handleInputChange}
+                  required
                 />
               </Form.Group>
               <Button type="submit">Submit</Button>
