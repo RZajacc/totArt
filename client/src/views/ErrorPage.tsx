@@ -37,7 +37,7 @@ function ErrorPage() {
         <Row className="justify-content-center text-center">
           <Col xs={5}>
             <img
-              src="https://res.cloudinary.com/dqdofxwft/image/upload/v1698673454/other/qgzz09ndlrdftje1eb9l.png"
+              src="https://res.cloudinary.com/dqdofxwft/image/upload/v1699618633/other/wfep02f6t2zhovchnjnu.png"
               width={"85%"}
             />
             <h4>{title}</h4>

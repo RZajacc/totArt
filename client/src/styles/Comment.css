@@ -10,14 +10,9 @@
 .rowStyle {
     margin: 3px;
     border-radius: 5%;
-    background-color: #FAFAFA;
+    background-color: #eff5f3;
     align-items: center;
 }
-
-/* .dateStyle {
-    font-size: 0.7rem;
-    font-style: italic;
-} */
 
 .delete-button {
     margin-left: 30%;

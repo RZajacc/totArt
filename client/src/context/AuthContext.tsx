@@ -9,7 +9,6 @@ interface AuthContextType {
   logout: () => void;
   getUser: (token: string) => void;
   isUserLoggedIn: () => void;
-  loader: boolean;
 }
 
 const AuthInitContext = {
@@ -20,7 +19,6 @@ const AuthInitContext = {
   logout: () => console.log("User is logged out"),
   getUser: () => console.log("Get user"),
   isUserLoggedIn: () => console.log("Checking if logged in"),
-  loader: true,
 };
 
 type AuthContexProviderProps = {
@@ -32,7 +30,6 @@ export const AuthContext = createContext<AuthContextType>(AuthInitContext);
 export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loader, setLoader] = useState(true);
 
   // *1_REGISTER A NEW USER
   const registerWithEmail = async (newUser: User) => {
@@ -138,13 +135,11 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
       const user: User | undefined = await getUser(token);
       if (user) {
         setUser(user);
-        setLoader(false);
         setIsLoggedIn(true);
       }
     } else {
       setIsLoggedIn(false);
       setUser(null);
-      setLoader(false);
     }
   };
 
@@ -168,7 +163,6 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
         logout,
         getUser,
         isUserLoggedIn,
-        loader,
       }}
     >
       {children}
