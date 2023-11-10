@@ -128,6 +128,7 @@ export const deleteUser = async (id: string) => {
       requestOptions
     );
     const result = await response.json();
+    console.log(result);
   } catch (error) {
     console.log(error);
   }

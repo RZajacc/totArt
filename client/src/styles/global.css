@@ -39,3 +39,35 @@ body {
     width: 125px;
     height: 125px;
 }
+
+/* *--------CONTACT PAGE-------------- */
+.contact-container {
+    margin-top: 3%;
+    font-family: "Garamond, serif";
+    font-size: 1.2rem;
+    margin-bottom: 5%;
+}
+
+.contact-info {
+    border: 3px solid black;
+    box-shadow: 5px 5px 5px black;
+    background-color: whitesmoke;
+}
+
+.contact-link {
+    text-decoration: none;
+    color: black;
+    border: 2px solid gray;
+    border-radius: 3%;
+    padding: 5px;
+}
+
+.contact-link:hover {
+    font-weight: bold;
+    border: 1px solid gray;
+}
+
+#adress-map {
+    width: 500px;
+    height: 300px;
+}
