@@ -9,7 +9,6 @@ import "../styles/contentPage.css";
 function Content() {
   const { posts } = useLoaderData() as contentData;
   const { user } = useContext(AuthContext);
-  console.log(user);
 
   return (
     <>

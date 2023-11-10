@@ -8,8 +8,8 @@ import { updateUserData } from "../utils/UserEditTools";
 const AddContentModal = () => {
   const [show, setShow] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | string>("");
-  const [imageUploadMessage, setImageUploadMessage] = useState("");
   const { user } = useContext(AuthContext);
+  const [isImageUploaded, setIsImageUploaded] = useState<null | boolean>(null);
 
   const [newContent, setNewContent] = useState<post>({
     _id: " ",
@@ -39,7 +39,7 @@ const AddContentModal = () => {
     setNewContent({ ...newContent, [`${e.target.name}`]: e.target.value });
   };
 
-  // *--------HANDLE FILE UPLOAD-----------------------
+  // * --------- UPLOAD IMAGE -------------------------------
   const handleFileSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -59,40 +59,44 @@ const AddContentModal = () => {
       );
       const result = (await response.json()) as UserImage;
       setNewContent({ ...newContent, imageUrl: result.userImage });
-      setImageUploadMessage("Image uploaded successfully");
+      setIsImageUploaded(true);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // * SUBMIT A NEW POST
-  const submitNewPost = async () => {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  // *------------- SUBMIT A NEW POST -----------------
+  const submitNewPost = async (e) => {
+    if (newContent.imageUrl) {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    const urlencoded = new URLSearchParams();
-    urlencoded.append("title", newContent.title);
-    urlencoded.append("description", newContent.description);
-    urlencoded.append("location", newContent.location);
-    urlencoded.append("imageUrl", newContent.imageUrl);
-    urlencoded.append("author", user!._id);
+      const urlencoded = new URLSearchParams();
+      urlencoded.append("title", newContent.title);
+      urlencoded.append("description", newContent.description);
+      urlencoded.append("location", newContent.location);
+      urlencoded.append("imageUrl", newContent.imageUrl);
+      urlencoded.append("author", user!._id);
 
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: urlencoded,
-    };
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: urlencoded,
+      };
 
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/posts/addNewPost",
-        requestOptions
-      );
-      const result = await response.json();
-      updateUserData(user!.email, "posts", result.postId);
-      // console.log(result);
-    } catch (error) {
-      console.log(error);
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/posts/addNewPost",
+          requestOptions
+        );
+        const result = await response.json();
+        updateUserData(user!.email, "posts", result.postId);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setIsImageUploaded(false);
+      e.preventDefault();
     }
   };
 
@@ -114,14 +118,21 @@ const AddContentModal = () => {
           <Modal.Body>
             <Form onSubmit={handleFileSubmit}>
               <InputGroup>
-                <Form.Control type="file" onChange={handleFileInput} required />
+                <Form.Control
+                  type="file"
+                  onChange={handleFileInput}
+                  required
+                  isInvalid={isImageUploaded === false}
+                  isValid={newContent.imageUrl != ""}
+                />
                 <Button type="submit">Upload image</Button>
+                <Form.Control.Feedback type="valid">
+                  Image uploaded successfully
+                </Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                  Uploading image is required!
+                </Form.Control.Feedback>
               </InputGroup>
-              {imageUploadMessage ? (
-                <p className="text-center">{imageUploadMessage}</p>
-              ) : (
-                ""
-              )}
             </Form>
             <Form onSubmit={submitNewPost}>
               <Form.Group
