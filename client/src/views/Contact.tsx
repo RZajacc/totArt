@@ -7,8 +7,8 @@ function Contact() {
       <Container className="contact-container">
         <Row className="justify-content-md-center text-center">
           <Col xs={7} className="contact-info">
-            <h1>Contact us</h1>
-            <p>You can reach us by phone, mail or just come to visit!</p>
+            <h1>Contact me</h1>
+            <p>You can reach me by phone, mail or just come to visit!</p>
             <p>
               <a href="mailto:rf.zajac@gmail.com" className="contact-link">
                 &#x2709; Contact me
