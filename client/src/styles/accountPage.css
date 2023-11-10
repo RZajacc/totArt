@@ -24,3 +24,20 @@
     cursor: pointer;
     text-decoration: none;
 }
+
+.password-req {
+    text-align: left;
+}
+
+.password-req>* {
+    margin: 5px;
+    font-size: smaller;
+    font-style: italic;
+}
+
+.reg-errors {
+    color: red;
+    text-align: left;
+    font-size: smaller;
+    font-weight: bold;
+}
