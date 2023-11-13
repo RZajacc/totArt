@@ -40,6 +40,7 @@ function Login({ setLogReg }: Props) {
           setEmailMsg(msg);
         } else {
           setPasswordMsg(msg!);
+          setEmailMsg("Email is correct!");
         }
       }
     } else {
@@ -74,9 +75,16 @@ function Login({ setLogReg }: Props) {
               placeholder="Enter email"
               onChange={handleLoginInput}
               required
-              isInvalid={emailMsg !== ""}
+              isInvalid={emailMsg === "No user found with provided email!"}
+              isValid={
+                emailMsg !== "No user found with provided email!" &&
+                emailMsg !== ""
+              }
             />
             <Form.Control.Feedback type="invalid">
+              {emailMsg}
+            </Form.Control.Feedback>
+            <Form.Control.Feedback type="valid">
               {emailMsg}
             </Form.Control.Feedback>
           </Form.Group>
