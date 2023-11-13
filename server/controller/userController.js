@@ -104,7 +104,7 @@ const login = async (req, res) => {
     const existingUser = await userModel.findOne({ email: req.body.email });
     if (!existingUser) {
       res.status(404).json({
-        msg: "no user found with provided email",
+        msg: "No user found with provided email!",
       });
     } else {
       // *Check password
@@ -115,7 +115,7 @@ const login = async (req, res) => {
 
       if (!checkPassword) {
         res.status(404).json({
-          msg: "Wrong password, try again",
+          msg: "Wrong password, try again!",
         });
       }
 

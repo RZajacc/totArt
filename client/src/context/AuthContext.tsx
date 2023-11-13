@@ -112,6 +112,7 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
         "http://localhost:5000/api/users/login",
         requestOptions
       );
+
       if (response.ok) {
         const result: LoggingResponse = await response.json();
         const token = result.token;
@@ -121,6 +122,10 @@ export const AuthContextProvider = ({ children }: AuthContexProviderProps) => {
           setUser(user);
           setIsLoggedIn(true);
         }
+        return result.msg;
+      } else {
+        const result = await response.json();
+        return result.msg;
       }
     } catch (err) {
       const error = err as Error;

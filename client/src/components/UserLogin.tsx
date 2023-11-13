@@ -13,6 +13,8 @@ function Login({ setLogReg }: Props) {
   // * USE CONTEXT DATA
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [emailMsg, setEmailMsg] = useState("");
+  const [passwordMsg, setPasswordMsg] = useState("");
 
   //* 1_Setting a login credentials
   const [loginCredentials, setLoginCredentials] =
@@ -30,8 +32,16 @@ function Login({ setLogReg }: Props) {
   const handleSubmitLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loginCredentials) {
-      login(loginCredentials);
-      navigate("/dashboard");
+      const msg = await login(loginCredentials);
+      if (msg! === "Successfull login") {
+        navigate("/dashboard");
+      } else {
+        if (msg! === "No user found with provided email!") {
+          setEmailMsg(msg);
+        } else {
+          setPasswordMsg(msg!);
+        }
+      }
     } else {
       console.log("No credentials provided");
     }
@@ -64,7 +74,11 @@ function Login({ setLogReg }: Props) {
               placeholder="Enter email"
               onChange={handleLoginInput}
               required
+              isInvalid={emailMsg !== ""}
             />
+            <Form.Control.Feedback type="invalid">
+              {emailMsg}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="user-password">
@@ -75,8 +89,12 @@ function Login({ setLogReg }: Props) {
               placeholder="Password"
               onChange={handleLoginInput}
               autoComplete="user-password"
+              isInvalid={passwordMsg != ""}
               required
             />
+            <Form.Control.Feedback type="invalid">
+              {passwordMsg}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <div className="text-center">
