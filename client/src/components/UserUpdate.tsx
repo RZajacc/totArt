@@ -92,15 +92,18 @@ function UserUpdate() {
   };
 
   // * CHANGING THE STATUS AFTER CLICKING EDIT BUTTON
-  const handleEditField = (e) => {
-    if (e.target.innerText === "Edit") {
-      e.target.innerText = "Cancel";
-      e.target.className = "btn btn-danger";
-      setFieldStatus(e.target.name, active);
+  const handleEditField = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const buttonEvent = e.target as HTMLButtonElement;
+    if (buttonEvent.innerText === "Edit") {
+      buttonEvent.innerText = "Cancel";
+      buttonEvent.className = "btn btn-danger";
+      setFieldStatus(buttonEvent.name, active);
     } else {
-      e.target.innerText = "Edit";
-      e.target.className = "btn btn-info";
-      setFieldStatus(e.target.name, idle);
+      buttonEvent.innerText = "Edit";
+      buttonEvent.className = "btn btn-info";
+      setFieldStatus(buttonEvent.name, idle);
     }
   };
 
