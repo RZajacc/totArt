@@ -1,78 +1,76 @@
 body {
-    /* background-color: #f8fc7e; */
-    background-color: #f4e400;
-    color: black;
-    margin-bottom: 5rem;
+  background-color: #f8fc7e;
+  /* background-color: #f4e400; */
+  color: black;
+  margin-bottom: 5rem;
 }
 
 .my-nav {
-    background-color: #eff5f3;
+  background-color: #eff5f3;
 }
 
 .nav-link {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .nav-link:hover {
-    background-color: #f4e400;
-    font-weight: bolder;
-    border-radius: 7%;
+  background-color: #f4e400;
+  font-weight: bolder;
+  border-radius: 7%;
 }
 
 .error-container {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .access-forbidden-container {
-    margin-top: 3%;
+  margin-top: 3%;
 }
 
 .access-forbidden-messages > * {
-    margin: 0.7rem;
+  margin: 0.7rem;
 }
 
 /* *--------LOADING PAGE------------ */
 .loadingContainer {
-    margin-top: 6%;
+  margin-top: 6%;
 }
 
 .spinnerStyle {
-    width: 125px;
-    height: 125px;
+  width: 125px;
+  height: 125px;
 }
 
 /* *---------HOME PAGE------------------ */
 
-
-
 /* *--------CONTACT PAGE-------------- */
 .contact-container {
-    margin-top: 3%;
-    font-family: "Garamond, serif";
-    font-size: 1.2rem;
-    margin-bottom: 5%;
+  margin-top: 3%;
+  font-family: "Garamond, serif";
+  font-size: 1.2rem;
+  margin-bottom: 5%;
 }
 
 .contact-info {
-    border: 3px solid black;
-    box-shadow: 5px 5px 5px black;
-    background-color: #eff5f3;
+  border: 3px solid black;
+  box-shadow: 5px 5px 5px black;
+  background-color: #eff5f3;
 }
 
 .contact-link {
-    text-decoration: none;
-    color: black;
-    border: 2px solid gray;
-    border-radius: 3%;
-    padding: 5px;
+  text-decoration: none;
+  color: black;
+  border: 2px solid gray;
+  border-radius: 3%;
+  padding: 5px;
 }
 
 .contact-link:hover {
-    font-weight: bold;
-    border: 1px solid gray;
+  font-weight: bold;
+  border: 1px solid gray;
 }
 
 #adress-map {
-    width: 500px;
-    height: 300px;
+  width: 500px;
+  height: 300px;
 }
