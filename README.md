@@ -6,7 +6,7 @@ It is the initial version of the project built with **MERN** stack. Most of the 
 * **Client** side of the application is built with React and Vite, Typescript, and Bootstrap.
 * **Server** side is built with Node.js, Express.js and MongoDB.
   
-<p>Current version of the app is available [here](https://github.com/RZajacc/totArt_v.2.0).</p>
+Current version of the app is available [here](https://github.com/RZajacc/totArt_v.2.0).
 
 ### Description:
 
