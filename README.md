@@ -2,7 +2,11 @@
 
 ### Version information:
 
-_It is the initial version of the project built with **MERN** stack. Most of the functionality is working fine, although the application is not full responsive (especially on mobile devices it won't look especially well). **Client** side of the application is built with React and Vite, Typescript, and Bootstrap. **Servers** side is built with Node.js, Express.js and MongoDB. Current version of the app is available [here](https://github.com/RZajacc/totArt_v.2.0)._
+It is the initial version of the project built with **MERN** stack. Most of the functionality is working fine, although the application is not full responsive (especially on mobile devices it won't look especially well). 
+* **Client** side of the application is built with React and Vite, Typescript, and Bootstrap.
+* **Server** side is built with Node.js, Express.js and MongoDB.
+  
+<p>Current version of the app is available [here](https://github.com/RZajacc/totArt_v.2.0).</p>
 
 ### Description:
 
